@@ -1,3 +1,8 @@
+# Grabs all relevant information for both halos in a pair from the sim file.
+# Header in output file outlines a prototype for the information structure.
+#  In: reduced_halo_pairs.txt, ds14_a_halos_1.0000
+# Out: reduced_halo_pairs_full_data.txt
+
 from yt.utilities.sdf import load_sdf
 import math
 

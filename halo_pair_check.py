@@ -1,3 +1,7 @@
+# check to make sure that we aren't seeing 0 separation pairs (ie: halo and its subhalos)
+#  In: reduced_halo_pairs.txt
+# Out: print statement of halo indicies
+
 from yt.utilities.sdf import load_sdf
 
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'

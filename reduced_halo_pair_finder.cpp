@@ -1,6 +1,7 @@
-/* Finds pairs based on separation
- * creates reduced_halo_pairs.txt
- * that is our search base of pairs
+/*
+ * Finds pairs based only on separation
+ *  In: mass_filter.txt
+ * Out: reduced_halo_pairs.txt
  */
 
 #include <iostream>

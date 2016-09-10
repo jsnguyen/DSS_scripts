@@ -1,6 +1,7 @@
-# Jayke Nguyen 5-27-16
-# Gets halo data from internet, scans all the halos and checks the
-# mass to see if it's greater than 2e14 mass sun
+# Gets halo data from internet, scans all the halos and checks the mass to see if it's greater than 2e14 mass sun.
+# Also attaches the coordinate data for each halo found
+#  In: ds14_a_halos_1.0000
+# Out: mass_filter.txt
 
 from yt.utilities.sdf import load_sdf
 import time
@@ -15,7 +16,7 @@ mass_type = 'mvir' #measure of mass
 mass_cutoff = 2e14 #cutoff limit
 n_halos = N_TOTAL_HALOS #number of halos searched through
 
-f_mass_filter = open('mass_filter_test.txt','w')
+f_mass_filter = open('mass_filter.txt','w')
 f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n')
 f_mass_filter.close()
 
@@ -34,7 +35,7 @@ while i < n_halos:
         y = str(sdf_data['y'][i])
         z = str(sdf_data['z'][i])
 
-        f_mass_filter = open('mass_filter_test.txt','a')
+        f_mass_filter = open('mass_filter.txt','a')
         f_mass_filter.write(str(i)+ ' ' + x + ' ' + y + ' ' + z +'\n') #only writes halo indicies
         f_mass_filter.close()
 
