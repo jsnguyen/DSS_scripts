@@ -1,3 +1,8 @@
+/* Finds pairs based on separation
+ * creates reduced_halo_pairs.txt
+ * that is our search base of pairs
+ */
+
 #include <iostream>
 #include <cmath>
 #include <string>
