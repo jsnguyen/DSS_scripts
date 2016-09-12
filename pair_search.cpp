@@ -5,14 +5,24 @@ using namespace std;
 int main(){
 
   halo_t halo_a, halo_b;
-  cart_t sys_midpoint, obs, obs_sep, obs_vel, rel_v, rel_p;
+  cart_t obs, obs_sep, obs_vel, rel_v, rel_p;
   sph_t sph;
-  string halo_a_str, halo_b_str, pair_attr_str, pair_attr_working, temp, temp_working[N_PAIR_ATTR], pair_id_str;
+  bounds_t b_sep, b_vel, b_mass_a, b_mass_b;
+
+  string halo_a_str, halo_b_str, pair_id_str, temp;
   int i,j, pair_count=0, pair_id;
 
+/*
+ * sphere[theta][phi]
+ * Theta has a range of 0 to pi.
+ * Phi has a range of 0 to 2pi.
+ * Since phi covers twice the interval, we do ANGULAR_RES*2.
+ * This array stores all the viewing angles that fulfil the search criterion.
+ * Printing this array is the same as taking the surface of a sphere and flattening and stretching it into a squre.
+ * Angular resolution determines the number of "pixels" on this sphere.
+ */
   char sphere[ANGULAR_RES][ANGULAR_RES*2];
 
-  bounds_t b_sep, b_vel, b_mass_a, b_mass_b;
 
 
   b_sep = get_range_input("separation");
@@ -27,12 +37,14 @@ int main(){
 
   if (f_halo_data.is_open()){
 
+    // Skip header lines
     for(i = 0; i < N_HEADER_LINES; i++){
-      getline(f_halo_data,temp); //skip header lines
+      getline(f_halo_data,temp);
     }
 
     while(1){
 
+      // Reset the sphere array
       for( i = 0; i<ANGULAR_RES; i++){
         for( j = 0; j<ANGULAR_RES*2; j++){
           sphere[i][j] = 'o';
@@ -48,60 +60,55 @@ int main(){
       }
 
       pair_id = atoi(pair_id_str.c_str());
-      halo_a = halo_t_parser(halo_a_str);
-      halo_b = halo_t_parser(halo_b_str);
-
-      sys_midpoint = midpoint(halo_a,halo_b);
-
-      sph.theta = 0;
-      sph.phi = 0;
-
+      halo_a = halo_t_parser(halo_a_str); // Parses halo_a data into halo_t retainer
+      halo_b = halo_t_parser(halo_b_str); // Parses halo_b data into halo_t retainer
 
       for(i = 0; i < ANGULAR_RES; i++){ //theta
-        for(j = 0; j < ANGULAR_RES*2; j++){ //phi
-          obs = sph_to_cart(sph);
+        for(j = 0; j < ANGULAR_RES*2; j++){ //phi, must be ANGULAR_RES*2 to make sure both steps in angle are the same.
 
-          rel_v = get_rel_v(halo_a,halo_b);
-          rel_p = get_rel_p(halo_a,halo_b);
+          obs = sph_to_cart(sph); // Convert spherical coordinates to cartesian
 
-          obs_sep = sep_projection(rel_p,obs);
-          obs_vel = projection(rel_v,obs);
+          rel_v = get_rel_v(halo_a,halo_b); // Calculate relative velocity
+          rel_p = get_rel_p(halo_a,halo_b); // Calculate relative position
 
-          sph.phi = (2*PI)/ANGULAR_RES * j;
+          obs_vel = projection(rel_v,obs); // Calculate observed velocity
+          obs_sep = sep_projection(rel_p,obs); // Calculate observed separation
 
+          sph.phi = (2*PI)/ANGULAR_RES * j; // Range for phi is 2pi
+
+          // Mass check
           if( ( ((halo_a.mvir > b_mass_a.low) && (halo_a.mvir <  b_mass_a.up))    &&
                 ((halo_b.mvir > b_mass_b.low) && (halo_b.mvir <  b_mass_b.up)) )  ||
               ( ((halo_a.mvir > b_mass_b.low) && (halo_a.mvir <  b_mass_b.up))    &&
                 ((halo_b.mvir > b_mass_a.low) && (halo_b.mvir <  b_mass_a.up)) )  ){
 
+            // Observed Velocity check
             if(magnitude(obs_vel) > b_vel.low && magnitude(obs_vel) < b_vel.up){
+
+              // Observed Separation check
               if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
-
-                sphere[i][j] = '_';
-
+                sphere[i][j] = '_'; // Mark where on the sphere the criterion is fulfilled
               }
             }
           }
-
         }
-
-        sph.theta = PI/ANGULAR_RES * i;
-
+        sph.theta = PI/ANGULAR_RES * i; // Range for theta is pi
       }
 
       for( i = 0; i<ANGULAR_RES; i++){
         for( j = 0; j<ANGULAR_RES*2; j++){
 
+          // Check if there is at least one angle for which the pair can be an analog
           if(sphere[i][j] != 'o'){
             pair_count++;
 
             cout << pair_id << endl;
-            cout << halo_a.pos.x << " " << halo_a.pos.y << " " << halo_a.pos.z << " " << halo_a.vel.x << " " << halo_a.vel.y << " " << halo_a.vel.z << " " << halo_a.mvir << " " << halo_a.r200b  << endl;
-            cout << halo_b.pos.x << " " << halo_b.pos.y << " " << halo_b.pos.z << " " << halo_b.vel.x << " " << halo_b.vel.y << " " << halo_b.vel.z << " " << halo_b.mvir << " " << halo_b.r200b  << endl;
+            print_halo(halo_a);
+            print_halo(halo_b);
+            cout << "------------------------------------------" << endl;
 
             i = ANGULAR_RES;
             j = ANGULAR_RES*2;
-
             /*
             for( i = 0; i<ANGULAR_RES; i++){
               for( j = 0; j<ANGULAR_RES*2; j++){
@@ -110,9 +117,7 @@ int main(){
               cout << endl;
             }
             */
-
           }
-
         }
       }
     }

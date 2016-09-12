@@ -12,9 +12,6 @@
 
 #define N_HEADER_LINES 3
 #define HUBBLE_CONST 0.7
-#define N_HALO_ATTR 9 //number of attributes for a single halo
-#define N_PAIR_ATTR 3 //number of pair (shared) attributes
-#define N_BOUNDS 4 //number of bounds on alpha
 #define ANGULAR_RES 100 //Number of iterations to check over, angular resolution
 #define PI 3.14159265359
 
@@ -27,7 +24,7 @@ struct cart_t{
 struct sph_t{
   double theta; // polar angle
   double phi; // azimuthal angle
-  double rho; // radius
+  double rho; // radius, this isn't really used
 };
 
 struct halo_t{
@@ -42,7 +39,6 @@ struct bounds_t{
   double low;
 };
 
-cart_t midpoint(halo_t halo_a, halo_t halo_b);
 double magnitude(cart_t cart);
 cart_t projection(cart_t a, cart_t b);
 cart_t sep_projection(cart_t a, cart_t b);
@@ -52,5 +48,6 @@ cart_t get_rel_v(halo_t halo_a, halo_t halo_b);
 cart_t get_rel_p(halo_t halo_a, halo_t halo_b);
 halo_t halo_t_parser(std::string str_input);
 bounds_t get_range_input(std::string type);
+void print_halo(halo_t halo);
 
 #endif

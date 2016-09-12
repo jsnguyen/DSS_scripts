@@ -1,20 +1,5 @@
 #include "pair_search_functions.h"
 
-cart_t midpoint(halo_t halo_a, halo_t halo_b){
-
-  cart_t midpoint;
-
-  midpoint.x = (halo_a.pos.x + halo_b.pos.x) / 2.0;
-  midpoint.y = (halo_a.pos.y + halo_b.pos.y) / 2.0;
-  midpoint.z = (halo_a.pos.z + halo_b.pos.z) / 2.0;
-
-  //cout << midpoint.x << " " << midpoint.y << " " << midpoint.z << endl;
-  //cout << halo_a.pos.x << " " << halo_a.pos.y << " " << halo_a.pos.z << endl;
-  //cout << halo_b.pos.x << " " << halo_b.pos.y << " " << halo_b.pos.z << endl;
-
-  return midpoint;
-}
-
 double magnitude(cart_t cart){
   double mag;
 
@@ -146,4 +131,11 @@ bounds_t get_range_input(std::string type){
   bound.low = input - range;
 
   return bound;
+}
+
+void print_halo(halo_t halo){
+
+  std::cout << halo.pos.x << " " << halo.pos.y << " " << halo.pos.z << " " << halo.vel.x << " " << halo.vel.y << " " << halo.vel.z << " " << halo.mvir << " " << halo.r200b  << std::endl;
+
+  return;
 }
