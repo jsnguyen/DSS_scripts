@@ -23,8 +23,6 @@ int main(){
  */
   char sphere[ANGULAR_RES][ANGULAR_RES*2];
 
-
-
   b_sep = get_range_input("separation");
   b_vel = get_range_input("velocity");
   b_mass_a = get_range_input("mass_a");
