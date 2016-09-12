@@ -116,3 +116,34 @@ halo_t halo_t_parser(std::string str_input){
 
   return halo;
 }
+
+bounds_t get_range_input(std::string type){
+
+  bounds_t bound;
+  double input, range;
+
+  std::string units;
+
+  if(type=="separation"){
+    units = "(Mpc)";
+  }
+
+  if(type=="velocity"){
+    units = "(km/s)";
+  }
+
+  if(type=="mass_a" || type=="mass_b"){
+    units = "(Msun)";
+  }
+
+  std::cout << "Input projected " << type << " " << units <<": ";
+  std::cin >> input;
+
+  std::cout << "Input projected range " << type << " " << units <<": ";
+  std::cin >> range;
+
+  bound.up = input + range;
+  bound.low = input - range;
+
+  return bound;
+}

@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <vector>
 
-#define N_HEADER_LINES 4
+#define N_HEADER_LINES 3
 #define HUBBLE_CONST 0.7
 #define N_HALO_ATTR 9 //number of attributes for a single halo
 #define N_PAIR_ATTR 3 //number of pair (shared) attributes

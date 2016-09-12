@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 
-#define N_HEADER_LINES 4
+#define N_HEADER_LINES 3
 #define HUBBLE_CONST 0.7
 #define N_HALO_ATTR 9 //number of attributes for a single halo
 #define N_PAIR_ATTR 3 //number of pair (shared) attributes
@@ -37,6 +37,11 @@ struct halo_t{
   double r200b;
 };
 
+struct bounds_t{
+  double up;
+  double low;
+};
+
 cart_t midpoint(halo_t halo_a, halo_t halo_b);
 double magnitude(cart_t cart);
 cart_t projection(cart_t a, cart_t b);
@@ -46,5 +51,6 @@ sph_t cart_to_sph(cart_t cart);
 cart_t get_rel_v(halo_t halo_a, halo_t halo_b);
 cart_t get_rel_p(halo_t halo_a, halo_t halo_b);
 halo_t halo_t_parser(std::string str_input);
+bounds_t get_range_input(std::string type);
 
 #endif
