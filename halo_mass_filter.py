@@ -13,6 +13,8 @@ start_time = time.time()
 
 sim_file ='/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
+save_directory = '/home/jsnguyen/Desktop/'
+
 N_TOTAL_HALOS = 4675339354 #total number of halos in the file
 HUBBLE_CONST = 0.688062
 
@@ -20,7 +22,7 @@ mass_type = 'mvir' #measure of mass
 mass_cutoff = 6e13 #cutoff limit
 n_halos = N_TOTAL_HALOS #number of halos searched through
 
-f_mass_filter = open('/home/jsnguyen/Desktop/mass_filter.txt','w')
+f_mass_filter = open(save_directory+'mass_filter.txt','w')
 f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n')
 f_mass_filter.close()
 
@@ -30,16 +32,16 @@ i = 0
 
 while i < n_halos:
 
-    if i%100000 == 0:
+    if i%1000000 == 0:
         print i
 
     if sdf_data['mvir'][i]/HUBBLE_CONST > mass_cutoff:
 
-        x = str(sdf_data['x'][i])/HUBBLE_CONST
-        y = str(sdf_data['y'][i])/HUBBLE_CONST
-        z = str(sdf_data['z'][i])/HUBBLE_CONST
+        x = str(sdf_data['x'][i]/HUBBLE_CONST)
+        y = str(sdf_data['y'][i]/HUBBLE_CONST)
+        z = str(sdf_data['z'][i]/HUBBLE_CONST)
 
-        f_mass_filter = open('mass_filter.txt','a')
+        f_mass_filter = open(save_directory+'mass_filter.txt','a')
         f_mass_filter.write(str(i)+ ' ' + x + ' ' + y + ' ' + z +'\n') #only writes halo indicies
         f_mass_filter.close()
 

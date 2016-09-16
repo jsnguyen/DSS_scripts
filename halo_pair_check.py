@@ -6,10 +6,11 @@ from yt.utilities.sdf import load_sdf
 
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
+save_directory = '/home/jsnguyen/Desktop/'
 
 sdf_data = load_sdf(sim_file)
 
-f_pairs = open('reduced_halo_pairs.txt','r')
+f_pairs = open(save_directory+'reduced_halo_pairs.txt','r')
 i=0
 for line in f_pairs:
 

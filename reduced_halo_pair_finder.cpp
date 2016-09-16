@@ -59,10 +59,13 @@ int main(){
   string coord_a,coord_b;
   int i,j,n_halos;
   double dist;
+
+  string save_directory = "/home/jsnguyen/Desktop/";
+
   ifstream f_mass_filter;
   ofstream f_pairs;
-  f_mass_filter.open("/home/jsnguyen/Desktop/mass_filter.txt");
-  f_pairs.open("/home/jsnguyen/Desktop/reduced_halo_pairs.txt");
+  f_mass_filter.open(save_directory+"mass_filter.txt");
+  f_pairs.open(save_directory+"reduced_halo_pairs.txt");
 
   n_halos = N_TOTAL_MASS_HALOS;
 

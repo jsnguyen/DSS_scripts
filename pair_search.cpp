@@ -12,6 +12,8 @@ int main(){
   string halo_a_str, halo_b_str, pair_id_str, temp;
   int i,j, pair_count=0, pair_id;
 
+  string save_directory = "/home/jsnguyen/Desktop/";
+
 /*
  * sphere[theta][phi]
  * Theta has a range of 0 to pi.
@@ -31,7 +33,7 @@ int main(){
   cout << "------------------------------------------" << endl;
 
   ifstream f_halo_data;
-  f_halo_data.open("/home/jsnguyen/Desktop/DSS_Data/reduced_halo_pairs_full_data.txt");
+  f_halo_data.open(save_directory+"reduced_halo_pairs_full_data.txt");
 
   if (f_halo_data.is_open()){
 
