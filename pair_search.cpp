@@ -83,7 +83,7 @@ int main(){
             if(magnitude(obs_vel) > b_vel.low && magnitude(obs_vel) < b_vel.up){
               // Observed Separation check
               if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
-                sphere[i][j] = '_'; // Mark where on the sphere the criterion is fulfilled
+                sphere[i][j] = ' '; // Mark where on the sphere the criterion is fulfilled
               }
             }
           }
