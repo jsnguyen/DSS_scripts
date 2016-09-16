@@ -96,7 +96,7 @@ halo_t halo_t_parser(std::string str_input){
   halo.vel.x = atof(str_working[4].c_str());
   halo.vel.y = atof(str_working[5].c_str());
   halo.vel.z = atof(str_working[6].c_str());
-  halo.mvir = atof(str_working[7].c_str())/HUBBLE_CONST;
+  halo.mvir = atof(str_working[7].c_str());
   halo.r200b = atof(str_working[8].c_str());
 
   return halo;

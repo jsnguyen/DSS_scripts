@@ -79,10 +79,8 @@ int main(){
                 ((halo_b.mvir > b_mass_b.low) && (halo_b.mvir <  b_mass_b.up)) )  ||
               ( ((halo_a.mvir > b_mass_b.low) && (halo_a.mvir <  b_mass_b.up))    &&
                 ((halo_b.mvir > b_mass_a.low) && (halo_b.mvir <  b_mass_a.up)) )  ){
-
             // Observed Velocity check
             if(magnitude(obs_vel) > b_vel.low && magnitude(obs_vel) < b_vel.up){
-
               // Observed Separation check
               if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
                 sphere[i][j] = '_'; // Mark where on the sphere the criterion is fulfilled
@@ -107,14 +105,14 @@ int main(){
 
             i = ANGULAR_RES;
             j = ANGULAR_RES*2;
-            /*
+
             for( i = 0; i<ANGULAR_RES; i++){
               for( j = 0; j<ANGULAR_RES*2; j++){
                 cout << sphere[i][j];
               }
               cout << endl;
             }
-            */
+
           }
         }
       }

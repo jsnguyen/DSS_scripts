@@ -6,6 +6,8 @@
 from yt.utilities.sdf import load_sdf
 import math
 
+HUBBLE_CONST = 0.688062
+
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
 sdf_data = load_sdf(sim_file)
@@ -27,27 +29,27 @@ for line in f_pairs:
     halo_a = int(line.split()[0])
     halo_b = int(line.split()[1])
 
-    ax = sdf_data['x'][halo_a]
-    ay = sdf_data['y'][halo_a]
-    az = sdf_data['z'][halo_a]
+    ax = sdf_data['x'][halo_a]/HUBBLE_CONST
+    ay = sdf_data['y'][halo_a]/HUBBLE_CONST
+    az = sdf_data['z'][halo_a]/HUBBLE_CONST
 
     avx = sdf_data['vx'][halo_a]
     avy = sdf_data['vy'][halo_a]
     avz = sdf_data['vz'][halo_a]
 
-    amvir = sdf_data['mvir'][halo_a]
-    ar200b = sdf_data['r200b'][halo_a]
+    amvir = sdf_data['mvir'][halo_a]/HUBBLE_CONST
+    ar200b = sdf_data['r200b'][halo_a]/HUBBLE_CONST
 
-    bx = sdf_data['x'][halo_b]
-    by = sdf_data['y'][halo_b]
-    bz = sdf_data['z'][halo_b]
+    bx = sdf_data['x'][halo_b]/HUBBLE_CONST
+    by = sdf_data['y'][halo_b]/HUBBLE_CONST
+    bz = sdf_data['z'][halo_b]/HUBBLE_CONST
 
     bvx = sdf_data['vx'][halo_b]
     bvy = sdf_data['vy'][halo_b]
     bvz = sdf_data['vz'][halo_b]
 
-    bmvir = sdf_data['mvir'][halo_b]
-    br200b = sdf_data['r200b'][halo_b]
+    bmvir = sdf_data['mvir'][halo_b]/HUBBLE_CONST
+    br200b = sdf_data['r200b'][halo_b]/HUBBLE_CONST
 
     f_pairs_data = open('/home/jsnguyen/Desktop/DSS_Data/reduced_halo_pairs_full_data.txt','a')
     f_pairs_data.write(str(i)+'\n')

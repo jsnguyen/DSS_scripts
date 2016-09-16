@@ -8,9 +8,11 @@ import time
 
 start_time = time.time()
 
+
 sim_file ='http://darksky.slac.stanford.edu/simulations/ds14_a/halos/ds14_a_halos_1.0000'
 
 N_TOTAL_HALOS = 4675339354 #total number of halos in the file
+HUBBLE_CONST = 0.688062
 
 mass_type = 'mvir' #measure of mass
 mass_cutoff = 2e14 #cutoff limit
@@ -29,11 +31,11 @@ while i < n_halos:
     if i%100000 == 0:
         print i
 
-    if sdf_data['mvir'][i] > mass_cutoff:
+    if sdf_data['mvir'][i]/HUBBLE_CONST > mass_cutoff:
 
-        x = str(sdf_data['x'][i])
-        y = str(sdf_data['y'][i])
-        z = str(sdf_data['z'][i])
+        x = str(sdf_data['x'][i])/HUBBLE_CONST
+        y = str(sdf_data['y'][i])/HUBBLE_CONST
+        z = str(sdf_data['z'][i])/HUBBLE_CONST
 
         f_mass_filter = open('mass_filter.txt','a')
         f_mass_filter.write(str(i)+ ' ' + x + ' ' + y + ' ' + z +'\n') #only writes halo indicies
