@@ -11,7 +11,7 @@
 #include <string>
 
 #define N_HEADER_LINES 3
-#define HUBBLE_CONST 0.7
+#define HUBBLE_CONST 0.688062
 #define N_HALO_ATTR 9
 #define ANGULAR_RES 100 //Number of iterations to check over, angular resolution
 #define PI 3.14159265359
