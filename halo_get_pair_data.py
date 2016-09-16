@@ -14,13 +14,13 @@ sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
 sdf_data = load_sdf(sim_file)
 
-f_pairs_data = open('/home/jsnguyen/Desktop/DSS_Data/reduced_halo_pairs_full_data.txt','w')
+f_pairs_data = open('/home/jsnguyen/Desktop/reduced_halo_pairs_full_data.txt','w')
 f_pairs_data.write('# pair_id\n')
 f_pairs_data.write('# ax ay az avx avy avz amvir ar200b\n')
 f_pairs_data.write('# bx by bz bvx bvy bvz bmvir br200b\n')
 f_pairs_data.close()
 
-f_pairs = open('/home/jsnguyen/Desktop/DSS_Data/reduced_halo_pairs.txt','r')
+f_pairs = open('/home/jsnguyen/Desktop/reduced_halo_pairs.txt','r')
 i=0
 for line in f_pairs:
 
@@ -53,7 +53,7 @@ for line in f_pairs:
     bmvir = sdf_data['mvir'][halo_b]/HUBBLE_CONST
     br200b = sdf_data['r200b'][halo_b]/HUBBLE_CONST
 
-    f_pairs_data = open('/home/jsnguyen/Desktop/DSS_Data/reduced_halo_pairs_full_data.txt','a')
+    f_pairs_data = open('/home/jsnguyen/Desktop/reduced_halo_pairs_full_data.txt','a')
     f_pairs_data.write(str(i)+'\n')
     f_pairs_data.write(str(halo_a)+' '+str(ax)+' '+str(ay)+' '+str(az)+' '+str(avx)+' '+str(avy)+' '+str(avz)+' '+str(amvir)+' '+str(ar200b)+' '+'\n')
     f_pairs_data.write(str(halo_b)+' '+str(bx)+' '+str(by)+' '+str(bz)+' '+str(bvx)+' '+str(bvy)+' '+str(bvz)+' '+str(bmvir)+' '+str(br200b)+' '+'\n')
