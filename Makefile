@@ -7,4 +7,4 @@ pair_search_tool:
 	$(CC) $(CFLAGS) pair_search.cpp pair_search_functions.cpp -o pair_search.exe
 
 clean:
-	rm pair_search
+	rm pair_search.exe
