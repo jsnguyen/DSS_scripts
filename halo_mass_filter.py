@@ -17,7 +17,7 @@ N_TOTAL_HALOS = 4675339354 #total number of halos in the file
 HUBBLE_CONST = 0.688062
 
 mass_type = 'mvir' #measure of mass
-mass_cutoff = 2e14 #cutoff limit
+mass_cutoff = 6e13 #cutoff limit
 n_halos = N_TOTAL_HALOS #number of halos searched through
 
 f_mass_filter = open('mass_filter.txt','w')

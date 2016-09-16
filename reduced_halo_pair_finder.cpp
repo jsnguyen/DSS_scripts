@@ -13,7 +13,7 @@
 
 #define N_TOTAL_MASS_HALOS 4378742
 #define N_HEADER_LINES 3
-
+#define MAX_SEPARATION 1.5 //Units: Mpc
 using namespace std;
 
 struct coord{
@@ -92,7 +92,7 @@ int main(){
           continue;
         }
 
-        if (dist < 1.0){
+        if (dist < MAX_SEPARATION){
           cout << "pair found: " << working_coord_a.index << " " << working_coord_b.index << endl;
           cout << "separation: " << dist << endl;
           f_pairs << working_coord_a.index << " " << working_coord_b.index << endl;
