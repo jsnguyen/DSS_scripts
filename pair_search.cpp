@@ -23,10 +23,10 @@ int main(){
  */
   char sphere[ANGULAR_RES][ANGULAR_RES*2];
 
-  b_sep = get_range_input("separation");
-  b_vel = get_range_input("velocity");
-  b_mass_a = get_range_input("mass_a");
-  b_mass_b = get_range_input("mass_b");
+  b_sep = get_range_input("separation"); // Units: Mpc
+  b_vel = get_range_input("velocity"); // Units: km/s
+  b_mass_a = get_range_input("mass_a"); // Units: Msun (Solar Masses)
+  b_mass_b = get_range_input("mass_b"); // Units: Msun (Solar Masses)
 
   cout << "------------------------------------------" << endl;
 
@@ -45,7 +45,7 @@ int main(){
       // Reset the sphere array
       for( i = 0; i<ANGULAR_RES; i++){
         for( j = 0; j<ANGULAR_RES*2; j++){
-          sphere[i][j] = 'o';
+          sphere[i][j] = '0';
         }
       }
 
@@ -95,7 +95,7 @@ int main(){
         for( j = 0; j<ANGULAR_RES*2; j++){
 
           // Check if there is at least one angle for which the pair can be an analog
-          if(sphere[i][j] != 'o'){
+          if(sphere[i][j] != '0'){
             pair_count++;
 
             cout << pair_id << endl;

@@ -1,5 +1,7 @@
 # Gets halo data from internet, scans all the halos and checks the mass to see if it's greater than 2e14 mass sun.
 # Also attaches the coordinate data for each halo found
+# The data straight from the simulation file uses length unit Mpc/h and mass unit Msun/h
+# In this file we convert the simulation units to Mpc and Msun
 #  In: ds14_a_halos_1.0000
 # Out: mass_filter.txt
 

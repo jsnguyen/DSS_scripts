@@ -1,5 +1,7 @@
 # Grabs all relevant information for both halos in a pair from the sim file.
 # Header in output file outlines a prototype for the information structure.
+# The data straight from the simulation file uses length unit Mpc/h and mass unit Msun/h
+# In this file we convert the simulation units to Mpc and Msun
 #  In: reduced_halo_pairs.txt, ds14_a_halos_1.0000
 # Out: reduced_halo_pairs_full_data.txt
 
