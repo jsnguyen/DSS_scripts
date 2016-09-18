@@ -96,7 +96,7 @@ int main(){
           f_pairs << working_coord_a.index << " " << working_coord_b.index << endl;
         }
 
-        if(j-i > 1000){
+        if(abs(j-i) > 1000){
           j = n_halos;
           continue;
         }
