@@ -28,7 +28,7 @@
 ###PRODUCING PAIR DATABASE FILE
 **halo_mass_filter.py** <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br />
-> *mass_filter.txt* <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| *mass_filter.txt* <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br />
 **reduced_halo_pair_finder.cpp** <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br />
