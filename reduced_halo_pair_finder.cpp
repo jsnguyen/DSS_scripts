@@ -65,7 +65,7 @@ int main(){
   ifstream f_mass_filter;
   ofstream f_pairs;
   f_mass_filter.open(save_directory+"mass_filter.txt");
-  f_pairs.open(save_directory+"reduced_halo_pairs.txt");
+  f_pairs.open(save_directory+"reduced_halo_pairs_1k.txt");
 
   n_halos = N_TOTAL_MASS_HALOS;
 
@@ -90,16 +90,17 @@ int main(){
         dist = distance(working_coord_a,working_coord_b);
         //cout << dist << endl;
 
-        if(j-i > 10000){
-          j = n_halos;
-          continue;
-        }
-
         if (dist < MAX_SEPARATION){
           cout << "pair found: " << working_coord_a.index << " " << working_coord_b.index << endl;
           cout << "separation: " << dist << endl;
           f_pairs << working_coord_a.index << " " << working_coord_b.index << endl;
         }
+
+        if(j-i > 1000){
+          j = n_halos;
+          continue;
+        }
+
 
       }
 
