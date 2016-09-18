@@ -1,6 +1,6 @@
 # DSS_scripts
 
-**halo_mass_filter.py**
+**halo_mass_filter.py** <br />
 *Description:* Filters halo by mass (2E14 solar masses). <br />
 *Input:* ds14_a_halos_1.0000 <br />
 *Output:* mass_filter.txt, writes the indicies and coordinates of the halos. <br />
@@ -26,20 +26,20 @@
 *Output:* print statements of pairs that fulfil the critereon <br />
 
 ###PRODUCING PAIR DATABASE FILE
-halo_mass_filter.py
-        |
-        | mass_filter.txt
-        v
-reduced_halo_pair_finder.cpp
-        |
-        | reduced_halo_pairs.txt
-        v
-halo_get_pair_data.py
-        |
-        | reduced_halo_pairs_full_data.txt
-        v
-halo_pair_check.py (optional, this step is to verify that the pairs are correct.)
-        |
-        |
-        v
-reduced_halo_pairs_full_data.txt
+halo_mass_filter.py <br />
+        | <br />
+        | mass_filter.txt <br />
+        v <br />
+reduced_halo_pair_finder.cpp <br />
+        | <br />
+        | reduced_halo_pairs.txt <br />
+        v <br />
+halo_get_pair_data.py <br />
+        | <br />
+        | reduced_halo_pairs_full_data.txt <br />
+        v <br />
+halo_pair_check.py (optional, this step is to verify that the pairs are correct.) <br />
+        | <br />
+        | <br />
+        v <br />
+reduced_halo_pairs_full_data.txt <br />
