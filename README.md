@@ -27,19 +27,19 @@
 
 ###PRODUCING PAIR DATABASE FILE
 halo_mass_filter.py <br />
-&nbsp;| <br />
-&nbsp;| mass_filter.txt <br />
-&nbsp;v <br />
+&nbsp; | <br />
+&nbsp; | mass_filter.txt <br />
+&nbsp; v <br />
 reduced_halo_pair_finder.cpp <br />
-&nbsp;| <br />
-&nbsp;| reduced_halo_pairs.txt <br />
-&nbsp;v <br />
+&nbsp; | <br />
+&nbsp; | reduced_halo_pairs.txt <br />
+&nbsp; v <br />
 halo_get_pair_data.py <br />
-&nbsp;| <br />
-&nbsp;| reduced_halo_pairs_full_data.txt <br />
-&nbsp;v <br />
+&nbsp; | <br />
+&nbsp; | reduced_halo_pairs_full_data.txt <br />
+&nbsp; v <br />
 halo_pair_check.py (optional, this step is to verify that the pairs are correct.) <br />
-&nbsp;| <br />
-&nbsp;| <br />
-&nbsp;v <br />
+&nbsp; | <br />
+&nbsp; | <br />
+&nbsp; v <br />
 reduced_halo_pairs_full_data.txt <br />
