@@ -1,6 +1,6 @@
 # DSS_scripts
 
-**halo_mass_filter.py**
+**halo_mass_filter.py** <br />
 Filters halo by mass (2E14 solar masses). <br />
 Input: ds14_a_halos_1.0000 <br />
 Output: mass_filter.txt, writes the indicies and coordinates of the halos. <br />
