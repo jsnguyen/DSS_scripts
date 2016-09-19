@@ -11,21 +11,20 @@ sdf_data = load_sdf(sim_file)
 
 f_pairs_data = open(save_directory+'reduced_halo_pairs_full_data.txt','w')
 
-#header describes the format of a pair
+#header describes the format of how a pair is stored
 f_pairs_data.write('# pair_id\n')
-
 f_pairs_data.write('# ax ay az avx avy avz amvir ar200b\n')
 f_pairs_data.write('# bx by bz bvx bvy bvz bmvir br200b\n')
 
 f_pairs_data.close()
 
 f_pairs = open(save_directory+'reduced_halo_pairs.txt','r')
+f_pairs.next() #skip header line
 i=0
 for line in f_pairs:
 
     if i % 1000 == 0:
         print i
-
 
     halo_a = int(line.split()[0])
     halo_b = int(line.split()[1])

@@ -1,9 +1,3 @@
-/*
- * Finds pairs based only on separation
- *  In: mass_filter.txt
- * Out: reduced_halo_pairs.txt
- */
-
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -90,6 +84,7 @@ int main(){
 
     f_mass_filter.close();
     f_pairs.open(save_directory+"reduced_halo_pairs.txt");
+    f_pairs << "# halo_a halo_b" << endl; //header
 
     for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
       for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
