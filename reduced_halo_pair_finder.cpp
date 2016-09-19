@@ -10,9 +10,10 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <limits>
+#include <vector>
 
-#define N_TOTAL_MASS_HALOS 4378742
-#define N_HEADER_LINES 3
+#define N_TOTAL_MASS_HALOS 46037858
 #define MAX_SEPARATION 1.5 //Units: Mpc
 using namespace std;
 
@@ -55,56 +56,55 @@ coord coord_parser(string str_input){
 
 int main(){
 
-  coord working_coord_a,working_coord_b;
-  string coord_a,coord_b;
-  int i,j,n_halos;
+  coord working_coord;
+  string working_coord_str;
+  int i,j;
   double dist;
+
+  vector<coord> data(N_TOTAL_MASS_HALOS);
 
   string save_directory = "/home/jsnguyen/Desktop/";
 
   ifstream f_mass_filter;
   ofstream f_pairs;
   f_mass_filter.open(save_directory+"mass_filter.txt");
-  f_pairs.open(save_directory+"reduced_halo_pairs_1k.txt");
-
-  n_halos = N_TOTAL_MASS_HALOS;
 
   if (f_mass_filter.is_open()){
 
-    for( i=0; i<n_halos; i++ ){
+    for( i=0; i<N_TOTAL_MASS_HALOS; i++){
 
-      f_mass_filter.clear();
-      f_mass_filter.seekg(0, ios::beg);
+      getline(f_mass_filter,working_coord_str);
+      working_coord = coord_parser(working_coord_str);
+      data[i] = working_coord;
 
-      for( j=0; j< N_HEADER_LINES+i; j++ ){
-        getline(f_mass_filter,coord_a); //skip first 3 header lines
-      }
-
-      getline(f_mass_filter,coord_a);
-      working_coord_b = coord_parser(coord_a);
-
-      for( j=i+1; j<n_halos; j++ ){
-        getline(f_mass_filter,coord_b);
-        working_coord_a = coord_parser(coord_b);
-
-        dist = distance(working_coord_a,working_coord_b);
-        //cout << dist << endl;
-
-        if (dist < MAX_SEPARATION){
-          cout << "pair found: " << working_coord_a.index << " " << working_coord_b.index << endl;
-          cout << "separation: " << dist << endl;
-          f_pairs << working_coord_a.index << " " << working_coord_b.index << endl;
-        }
-
-        if(abs(j-i) > 1000){
-          j = n_halos;
-          continue;
-        }
-
-
+      if (i%100000 == 0){
+        cout << "Processing " <<  i << " of " << N_TOTAL_MASS_HALOS << endl;
       }
 
     }
+
+    for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
+      for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
+
+        dist = distance(data[i],data[j]);
+
+      if (dist < MAX_SEPARATION){
+
+          cout << "pair found: " << data[i].index << " " << data[j].index << endl;
+          cout << "separation: " << dist << endl;
+
+          f_pairs.open(save_directory+"reduced_halo_pairs.txt",ios_base::app);
+          f_pairs << data[i].index << " " << data[j].index << endl;
+          f_pairs.close();
+        }
+
+        if(abs(data[i].index-data[j].index) > 10000){
+          j = N_TOTAL_MASS_HALOS;
+        }
+
+      }
+    }
+
 
   }
 
@@ -113,6 +113,6 @@ int main(){
   }
 
   f_mass_filter.close();
-  f_pairs.close();
+
   return 0;
 }

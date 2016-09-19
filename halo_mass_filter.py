@@ -23,12 +23,16 @@ mass_cutoff = 6e13 #cutoff limit
 n_halos = N_TOTAL_HALOS #number of halos searched through
 
 f_mass_filter = open(save_directory+'mass_filter.txt','w')
-f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n')
+#f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n')
+
 f_mass_filter.close()
+
+f_mass_filter = open(save_directory+'mass_filter.txt','a')
 
 sdf_data = load_sdf(sim_file)
 
 i = 0
+
 
 while i < n_halos:
 
@@ -41,10 +45,11 @@ while i < n_halos:
         y = str(sdf_data['y'][i]/HUBBLE_CONST)
         z = str(sdf_data['z'][i]/HUBBLE_CONST)
 
-        f_mass_filter = open(save_directory+'mass_filter.txt','a')
-        f_mass_filter.write(str(i)+ ' ' + x + ' ' + y + ' ' + z +'\n') #only writes halo indicies
-        f_mass_filter.close()
+        halo_data = str(i)+ ' ' + x + ' ' + y + ' ' + z + '\n'
+        f_mass_filter.write(halo_data) #only writes halo indicies
 
     i+=1
+
+f_mass_filter.close()
 
 print ('The script took {0} seconds!'.format(time.time() - start_time))
