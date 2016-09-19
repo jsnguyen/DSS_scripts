@@ -1,10 +1,3 @@
-# Grabs all relevant information for both halos in a pair from the sim file.
-# Header in output file outlines a prototype for the information structure.
-# The data straight from the simulation file uses length unit Mpc/h and mass unit Msun/h
-# In this file we convert the simulation units to Mpc and Msun
-#  In: reduced_halo_pairs.txt, ds14_a_halos_1.0000
-# Out: reduced_halo_pairs_full_data.txt
-
 from yt.utilities.sdf import load_sdf
 import math
 
@@ -17,9 +10,13 @@ save_directory = '/home/jsnguyen/Desktop/'
 sdf_data = load_sdf(sim_file)
 
 f_pairs_data = open(save_directory+'reduced_halo_pairs_full_data.txt','w')
+
+#header describes the format of a pair
 f_pairs_data.write('# pair_id\n')
+
 f_pairs_data.write('# ax ay az avx avy avz amvir ar200b\n')
 f_pairs_data.write('# bx by bz bvx bvy bvz bmvir br200b\n')
+
 f_pairs_data.close()
 
 f_pairs = open(save_directory+'reduced_halo_pairs.txt','r')

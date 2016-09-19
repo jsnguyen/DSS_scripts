@@ -1,17 +1,26 @@
 # DSS_scripts
 
+**Notes** <br />
+*Sim Units*: <br />
+*Length: Mpccm/h, (comoving)
+*Mass: Msun/h
+
+Sim units are ALWAYS converted from unit/h to unit when getting data from the sim file. <br />
+Using virial mass (mvir) and 200b radius (r200b). <br />
+Most output files will have a header with a prototype of how the data is stored <br />
+
 **halo_mass_filter.py** <br />
-*Description:* Filters halo by mass (2E14 solar masses). <br />
+*Description:* Filters halo by preset mass. Variable is mass_cutoff, units of Msun. <br />
 *Input:* ds14_a_halos_1.0000 <br />
 *Output:* mass_filter.txt, writes the indicies and coordinates of the halos. <br />
 
 **reduced_halo_pair_finder.cpp**  <br />
-*Description:* Filters halo by separation distance, less than 1.0 Mpc/h <br />
+*Description:* Filters halo by separation distance, less than 1.0 Mpc/h. Creates a very large vector, requires ~1.3 Gb of RAM. Stores all the data from the file in memory because repeated file access is very costly. <br />
 *Input:* mass_filter.txt <br />
-*Output:* reduced_halo_pairs.txt, writes the indicies the halos. <br />
+*Output:* reduced_halo_pairs.txt, writes the indicies the halo pairs. <br />
 
 **halo_get_pair_data.py** <br />
-*Description:* Gets pair data for all the pairs. <br />
+*Description:* Gets pair data for all the pairs from the sim file. <br />
 *Input:* ds14_a_halos_1.0000, reduced_halo_pairs.txt <br />
 *Output:* reduced_halo_pairs_full_data.txt, writes out all relevant halo attributes. <br />
 
@@ -25,7 +34,7 @@
 *Input:* reduced_halo_pairs_full_data.txt <br />
 *Output:* print statements of pairs that fulfil the critereon <br />
 
-###PRODUCING PAIR DATABASE FILE
+### PRODUCING PAIR DATABASE FILE
 **halo_mass_filter.py** <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| *mass_filter.txt* <br />

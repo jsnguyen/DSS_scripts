@@ -14,6 +14,7 @@
 #include <vector>
 
 #define N_TOTAL_MASS_HALOS 46037858
+#define N_HEADER_LINES 3
 #define MAX_SEPARATION 1.5 //Units: Mpc
 using namespace std;
 
@@ -61,50 +62,52 @@ int main(){
   int i,j;
   double dist;
 
-  vector<coord> data(N_TOTAL_MASS_HALOS);
+  vector<coord> data(N_TOTAL_MASS_HALOS); //this array is HUGE, requires ~1.3 Gb of RAM
 
   string save_directory = "/home/jsnguyen/Desktop/";
 
   ifstream f_mass_filter;
   ofstream f_pairs;
+
   f_mass_filter.open(save_directory+"mass_filter.txt");
 
   if (f_mass_filter.is_open()){
 
-    for( i=0; i<N_TOTAL_MASS_HALOS; i++){
+    //skip the header lines
+    for( i=0; i<N_HEADER_LINES; i++){
+      getline(f_mass_filter,working_coord_str);
+    }
 
+    for( i=0; i<N_TOTAL_MASS_HALOS; i++){
       getline(f_mass_filter,working_coord_str);
       working_coord = coord_parser(working_coord_str);
       data[i] = working_coord;
 
       if (i%100000 == 0){
-        cout << "Processing " <<  i << " of " << N_TOTAL_MASS_HALOS << endl;
+        cout << "Processing... " <<  double(i)/double(N_TOTAL_MASS_HALOS)*100 << '%' << endl;
       }
-
     }
+
+    f_mass_filter.close();
+    f_pairs.open(save_directory+"reduced_halo_pairs.txt");
 
     for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
       for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
-
         dist = distance(data[i],data[j]);
 
-      if (dist < MAX_SEPARATION){
-
+        if (dist < MAX_SEPARATION){
           cout << "pair found: " << data[i].index << " " << data[j].index << endl;
           cout << "separation: " << dist << endl;
-
-          f_pairs.open(save_directory+"reduced_halo_pairs.txt",ios_base::app);
           f_pairs << data[i].index << " " << data[j].index << endl;
-          f_pairs.close();
         }
 
         if(abs(data[i].index-data[j].index) > 10000){
-          j = N_TOTAL_MASS_HALOS;
+          j = N_TOTAL_MASS_HALOS; // 99% likelyhood we will find pairs within 10000 indicies
         }
-
       }
     }
 
+    f_pairs.close();
 
   }
 
@@ -112,7 +115,7 @@ int main(){
     cout << "Error: Cannot open file." << endl;
   }
 
-  f_mass_filter.close();
+
 
   return 0;
 }

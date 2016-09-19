@@ -1,15 +1,7 @@
-# Gets halo data from internet, scans all the halos and checks the mass to see if it's greater than 2e14 mass sun.
-# Also attaches the coordinate data for each halo found
-# The data straight from the simulation file uses length unit Mpc/h and mass unit Msun/h
-# In this file we convert the simulation units to Mpc and Msun
-#  In: ds14_a_halos_1.0000
-# Out: mass_filter.txt
-
 from yt.utilities.sdf import load_sdf
 import time
 
 start_time = time.time()
-
 
 sim_file ='/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
@@ -23,8 +15,7 @@ mass_cutoff = 6e13 #cutoff limit
 n_halos = N_TOTAL_HALOS #number of halos searched through
 
 f_mass_filter = open(save_directory+'mass_filter.txt','w')
-#f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n')
-
+f_mass_filter.write('#mass_type '+mass_type+'\n'+'#mass_cutoff (Msun) '+str(mass_cutoff)+'\n'+'#n_halos '+str(n_halos)+'\n') #header
 f_mass_filter.close()
 
 f_mass_filter = open(save_directory+'mass_filter.txt','a')
@@ -32,8 +23,6 @@ f_mass_filter = open(save_directory+'mass_filter.txt','a')
 sdf_data = load_sdf(sim_file)
 
 i = 0
-
-
 while i < n_halos:
 
     if i%1000000 == 0:
