@@ -82,6 +82,8 @@ int main(){
       }
     }
 
+    cout << "Processing... 100%\nComplete."<< endl;
+
     f_mass_filter.close();
     f_pairs.open(save_directory+"reduced_halo_pairs.txt");
     f_pairs << "# halo_a halo_b" << endl; //header
