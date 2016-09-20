@@ -40,6 +40,12 @@ struct bounds_t{
   double low;
 };
 
+struct pair_t{
+  int id;
+  halo_t a;
+  halo_t b;
+};
+
 double magnitude(cart_t cart);
 cart_t projection(cart_t a, cart_t b);
 cart_t sep_projection(cart_t a, cart_t b);

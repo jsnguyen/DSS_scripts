@@ -54,6 +54,7 @@ sph_t cart_to_sph(cart_t cart){
   return sph;
 }
 
+//relative velocity of a from b
 cart_t get_rel_v(halo_t halo_a, halo_t halo_b){
 
   cart_t v;
@@ -65,6 +66,7 @@ cart_t get_rel_v(halo_t halo_a, halo_t halo_b){
   return v;
 }
 
+//relative position of a from b
 cart_t get_rel_p(halo_t halo_a, halo_t halo_b){
 
   cart_t p;
