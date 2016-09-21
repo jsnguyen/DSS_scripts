@@ -152,8 +152,8 @@ int main(){
 
   cout << endl << "Total Pairs: " << pair_count << endl << endl;
   cout << "(id)                  pair_id" << endl;
-  cout << "(halo a attributes)   ax ay az avx avy avz amvir ar200b" << endl;
-  cout << "(halo b attributes)   bx by bz bvx bvy bvz bmvir br200b" << endl;
+  cout << "(halo a attributes)   aindex ax ay az avx avy avz amvir ar200b" << endl;
+  cout << "(halo b attributes)   bindex bx by bz bvx bvy bvz bmvir br200b" << endl;
 
 
   return 0;

@@ -27,7 +27,7 @@ for line in f_pairs:
 
     difference.append(abs(ar200b-br200b))
 
-    print halo_a,halo_b
+    #print halo_a,halo_b
 
 f_pairs.close()
 
