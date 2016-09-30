@@ -45,6 +45,7 @@ struct pair_t{
   int id;
   halo_t a;
   halo_t b;
+  double prob; //probability
 };
 
 double magnitude(cart_t cart);

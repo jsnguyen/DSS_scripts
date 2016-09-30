@@ -12,9 +12,9 @@ int main(){
 
   string halo_a_str, halo_b_str, pair_id_str, temp;
 
-  int i,j,k, pair_count=0;
+  int i,j,k, pair_count=0,prob_count=0;
 
-  string save_directory = "/home/jsnguyen/Desktop/DSS_Data/";
+  string save_directory = "/home/jsnguyen/Dropbox/DSS_Data/";
 
 /*
  * sphere[theta][phi]
@@ -108,12 +108,16 @@ int main(){
             // Observed Separation check
             if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
               sphere[i][j] = ' '; // Mark where on the sphere the criterion is fulfilled
+              prob_count+=1;
             }
           }
         }
       }
       sph.theta = PI/ANGULAR_RES * i; // Range for theta is pi, increment theta
     }
+
+    pair[k].prob = double(prob_count) / double(ANGULAR_RES*ANGULAR_RES*2.0);
+    prob_count = 0;
 
     //checks if there is atleast one angle that works
     for( i = 0; i<ANGULAR_RES; i++){
@@ -127,6 +131,7 @@ int main(){
           cout << pair[k].id << endl;
           print_halo(pair[k].a);
           print_halo(pair[k].b);
+          cout << "probability: " << pair[k].prob << endl;
           cout << "------------------------------------------" << endl;
 
           i = ANGULAR_RES;
