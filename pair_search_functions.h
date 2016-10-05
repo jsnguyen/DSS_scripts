@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <fstream>
+#include <ostream>
 #include <sstream>
 #include <cstdlib>
 #include <vector>
@@ -58,5 +59,6 @@ cart_t get_rel_p(halo_t halo_a, halo_t halo_b);
 halo_t halo_t_parser(std::string str_input);
 bounds_t get_range_input(std::string type);
 void print_halo(halo_t halo);
+void save_halo(halo_t halo, std::ofstream& data);
 
 #endif

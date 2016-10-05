@@ -141,3 +141,10 @@ void print_halo(halo_t halo){
 
   return;
 }
+
+void save_halo(halo_t halo, std::ofstream& data){
+
+  data << halo.index << " " << halo.pos.x << " " << halo.pos.y << " " << halo.pos.z << " " << halo.vel.x << " " << halo.vel.y << " " << halo.vel.z << " " << halo.mvir << " " << halo.r200b  << std::endl;
+
+  return;
+}

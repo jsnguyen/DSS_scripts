@@ -69,6 +69,9 @@ int main(){
 
   cout << "Searching for matching pairs." << endl;
 
+  ofstream pair_out; //pair output
+  pair_out.open(save_directory+"pair_output.txt");
+
   // Iterates over all the pairs
   for(k=0; k < N_PAIRS; k++){
 
@@ -133,6 +136,11 @@ int main(){
           print_halo(pair[k].b);
           cout << "probability: " << pair[k].prob << endl;
           cout << "------------------------------------------" << endl;
+
+          pair_out << pair[k].id << endl;
+          save_halo(pair[k].a,pair_out);
+          save_halo(pair[k].b,pair_out);
+          pair_out << pair[k].prob << endl; //store data in output file
 
           i = ANGULAR_RES;
           j = ANGULAR_RES*2;
