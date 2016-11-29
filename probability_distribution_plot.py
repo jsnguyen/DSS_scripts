@@ -11,8 +11,18 @@ bins = np.linspace(0, 1, 100)
 
 f_pairs = open(save_directory+'pair_output.txt','r')
 
+for i in range(3):
+    next(f_pairs)
+
 for line in f_pairs:
+    for i in range(3):
+        try:
+            next(f_pairs)
+        except StopIteration:
+            break
+            
     x.append(float(line))
+    print line
 
 plt.subplot(111)
 plt.hist(x,bins,label='Data',histtype='step',linewidth=2.5)

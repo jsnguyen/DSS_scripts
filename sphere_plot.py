@@ -18,7 +18,7 @@ phi=[]
 for i in range(len(lines)):
     lines[i] = lines[i].split("\n")[0]
 
-for i in range(10299,len(lines)):
+for i in range(0,len(lines)):
     if lines[i] == "#":
         j=i+1
         while lines[j] != "#":

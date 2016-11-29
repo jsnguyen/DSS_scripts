@@ -9,10 +9,11 @@ int main(){
   cart_t obs, obs_sep, obs_vel, rel_v, rel_p;
   sph_t sph;
   bounds_t b_sep, b_vel, b_mass_a, b_mass_b;
+  double area_counter=0;
 
   string halo_a_str, halo_b_str, pair_id_str, temp;
 
-  int i,j,k,l,m, pair_count=0,prob_count=0;
+  int i,j,k,l,m, pair_count=0;
 
   string save_directory = "/home/jsnguyen/Dropbox/DSS_Data/";
 
@@ -91,10 +92,11 @@ int main(){
     }
 
     // Integrating over the sphere
+    // The difference between steps in theta are the same as steps in phi
     for(i = 0; i < ANGULAR_RES; i++){ //theta
       sph.theta = double(PI)/double(ANGULAR_RES) * double(i); // Range for theta is 0 to pi
       for(j = 0; j < ANGULAR_RES*2; j++){ //phi, must be ANGULAR_RES*2 because we are integrating over 2pi
-        sph.phi = double(PI)/double(ANGULAR_RES) * double(j); // Range for phi is 0 to 2pi
+        sph.phi = double(PI*2.0)/double(ANGULAR_RES*2.0) * double(j); // Range for phi is 0 to 2pi
 
         obs = sph_to_cart(sph); // Convert spherical coordinates to cartesian
 
@@ -114,15 +116,15 @@ int main(){
             // Observed Separation check
             if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
               sphere[i][j] = ' '; // Mark where on the sphere the criterion is fulfilled
-              prob_count+=1;
+              area_counter += ( double(PI)/double(ANGULAR_RES) ) * ( cos( sph.theta - ( double(PI)/double(ANGULAR_RES) ) ) - cos(sph.theta) );
             }
           }
         }
       }
     }
 
-    pair[k].prob = double(prob_count) / double(ANGULAR_RES*ANGULAR_RES*2.0);
-    prob_count = 0;
+    pair[k].prob = area_counter / double(4*PI); //area that works divided by the surface area of the sphere
+    area_counter = 0;
 
     //checks if there is atleast one angle that works
     for( i = 0; i<ANGULAR_RES; i++){
@@ -149,7 +151,7 @@ int main(){
           i = ANGULAR_RES;
           j = ANGULAR_RES*2;
 
-
+/*
           //Print out the array
           for( i = 0; i<ANGULAR_RES; i++){
             for( j = 0; j<ANGULAR_RES*2; j++){
@@ -157,8 +159,9 @@ int main(){
             }
             cout << endl;
           }
+*/
 
-          // outputting the angles to a file
+          //outputting the angles to a file
           angle_out << "#" << endl;
           for( l = 0; l<ANGULAR_RES; l++){
             for( m = 0; m<ANGULAR_RES*2; m++){
