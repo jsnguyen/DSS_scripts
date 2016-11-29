@@ -12,7 +12,7 @@ int main(){
 
   string halo_a_str, halo_b_str, pair_id_str, temp;
 
-  int i,j,k, pair_count=0,prob_count=0;
+  int i,j,k,l,m, pair_count=0,prob_count=0;
 
   string save_directory = "/home/jsnguyen/Dropbox/DSS_Data/";
 
@@ -72,6 +72,9 @@ int main(){
   ofstream pair_out; //pair output
   pair_out.open(save_directory+"pair_output.txt");
 
+  ofstream angle_out;
+  angle_out.open(save_directory+"angle_out.txt");
+
   // Iterates over all the pairs
   for(k=0; k < N_PAIRS; k++){
 
@@ -89,7 +92,9 @@ int main(){
 
     // Integrating over the sphere
     for(i = 0; i < ANGULAR_RES; i++){ //theta
-      for(j = 0; j < ANGULAR_RES*2; j++){ //phi, must be ANGULAR_RES*2 to make sure both steps in angle are the same.
+      sph.theta = double(PI)/double(ANGULAR_RES) * double(i); // Range for theta is 0 to pi
+      for(j = 0; j < ANGULAR_RES*2; j++){ //phi, must be ANGULAR_RES*2 because we are integrating over 2pi
+        sph.phi = double(PI)/double(ANGULAR_RES) * double(j); // Range for phi is 0 to 2pi
 
         obs = sph_to_cart(sph); // Convert spherical coordinates to cartesian
 
@@ -98,8 +103,6 @@ int main(){
 
         obs_vel = projection(rel_v,obs); // Calculate observed velocity
         obs_sep = sep_projection(rel_p,obs); // Calculate observed separation
-
-        sph.phi = (2*PI)/ANGULAR_RES * j; // Range for phi is 2pi
 
         // Mass check
         if( ( ((pair[k].a.mvir > b_mass_a.low) && (pair[k].a.mvir <  b_mass_a.up))    &&
@@ -116,7 +119,6 @@ int main(){
           }
         }
       }
-      sph.theta = PI/ANGULAR_RES * i; // Range for theta is pi, increment theta
     }
 
     pair[k].prob = double(prob_count) / double(ANGULAR_RES*ANGULAR_RES*2.0);
@@ -142,10 +144,12 @@ int main(){
           save_halo(pair[k].b,pair_out);
           pair_out << pair[k].prob << endl; //store data in output file
 
+
+
           i = ANGULAR_RES;
           j = ANGULAR_RES*2;
 
-          /*
+
           //Print out the array
           for( i = 0; i<ANGULAR_RES; i++){
             for( j = 0; j<ANGULAR_RES*2; j++){
@@ -153,12 +157,25 @@ int main(){
             }
             cout << endl;
           }
-          */
+
+          // outputting the angles to a file
+          angle_out << "#" << endl;
+          for( l = 0; l<ANGULAR_RES; l++){
+            for( m = 0; m<ANGULAR_RES*2; m++){
+              if(sphere[l][m] != '0'){
+                angle_out << PI/ANGULAR_RES * l << " " << (PI)/(ANGULAR_RES) * m << endl;
+              }
+            }
+          }
 
         }
       }
     }
   }
+
+  pair_out.close();
+  angle_out.close();
+
   cout << "100%\nComplete."<< endl;
 
 //##################################################################
