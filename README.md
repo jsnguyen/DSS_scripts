@@ -32,7 +32,33 @@ Most output files will have a header with a prototype of how the data is stored 
 **pair_search.cpp, pair_search_functions.cpp, pair_search_functions.h** <br />
 *Description:* Searches the database of pairs (reduced_halo_pairs_full_data.txt) for specific criterion. Filters by mass, separation and velocity. Checks for a specific viewing angle of the halo system. Integrates spherical coordinates phi and theta over the entire "viewing" sphere and checks if the projected separation and projected velocity are within our search critereon. Makefile produces pair_search.exe as the executable file. <br />
 *Input:* reduced_halo_pairs_full_data.txt <br />
-*Output:* print statements of pairs that fulfil the critereon <br />
+*Output:* pair_out.txt, angle_out.txt <br />
+
+**halo_index_difference_plot.py** <br />
+*Description:* Plots the differences between indicies of the two halos for a given pair. <br />
+*Input:* pair_out.txt <br />
+*Output:* Histogram of data <br />
+
+**halo_mass_difference_plot.py** <br />
+*Description:* Plots the differences between the masses of the two halos for a given pair. <br />
+*Input:* pair_out.txt <br />
+*Output:* Histogram of data <br />
+
+**halo_pair_visualization.py** <br />
+*Description:* Plots the verified observer angles onto a sphere. The red line runs between poles of the sphere and serves as a reference. <br />
+*Input:* angle_out.txt <br />
+*Output:* 3D plot of the angles overlaid on a sphere <br />
+
+**probability_distribution_plot.py** <br />
+*Description:* Plots the probability distribution for the halos. <br />
+*Input:* pair_out.txt <br />
+*Output:* Histogram of data <br />
+
+**Cluster Input Files**
+bullet_cluster.txt <br />
+musketball_cluster.txt <br />
+toothbrush_cluster.txt <br />
+
 
 ### PRODUCING PAIR DATABASE FILE
 **halo_mass_filter.py** <br />
