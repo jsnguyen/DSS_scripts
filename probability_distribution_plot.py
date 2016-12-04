@@ -20,18 +20,19 @@ for line in f_pairs:
             next(f_pairs)
         except StopIteration:
             break
-            
+
     x.append(float(line))
-    print line
+    if float(line) > 0.3:
+        print line.strip()
 
 plt.subplot(111)
 plt.hist(x,bins,label='Data',histtype='step',linewidth=2.5)
 plt.title('Musket Ball Cluster Probability Distribution')
 plt.xlabel('Probability')
 plt.ylabel('Counts')
-plt.legend(loc='upper right')
+#plt.legend(loc='upper right')
 #plt.yscale('log')
-plt.axis([0, 1, 0, 5000]) #for log plot ymin > 0 (CANNOT BE ZERO!)
+plt.axis([0, 1, 0, 6000]) #for log plot ymin > 0 (CANNOT BE ZERO!)
 plt.grid(True)
 
 plt.show()
