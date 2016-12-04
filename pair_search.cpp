@@ -146,12 +146,9 @@ int main(){
           save_halo(pair[k].b,pair_out);
           pair_out << pair[k].prob << endl; //store data in output file
 
-
-
           i = ANGULAR_RES;
           j = ANGULAR_RES*2;
 
-/*
           //Print out the array
           for( i = 0; i<ANGULAR_RES; i++){
             for( j = 0; j<ANGULAR_RES*2; j++){
@@ -159,14 +156,14 @@ int main(){
             }
             cout << endl;
           }
-*/
+
 
           //outputting the angles to a file
           angle_out << "#" << endl;
           for( l = 0; l<ANGULAR_RES; l++){
             for( m = 0; m<ANGULAR_RES*2; m++){
               if(sphere[l][m] != '0'){
-                angle_out << PI/ANGULAR_RES * l << " " << (PI)/(ANGULAR_RES) * m << endl;
+                angle_out << double(PI)/double(ANGULAR_RES) * l << " " << double(PI)/double(ANGULAR_RES) * m << endl;
               }
             }
           }

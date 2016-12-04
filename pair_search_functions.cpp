@@ -13,9 +13,9 @@ cart_t projection(cart_t a, cart_t b){
 
   cart_t proj;
 
-  proj.x = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / (magnitude(b)*magnitude(b) ) * b.x;
-  proj.y = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / (magnitude(b)*magnitude(b) ) * b.y;
-  proj.z = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / (magnitude(b)*magnitude(b) ) * b.z;
+  proj.x = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / ( magnitude(b)*magnitude(b) ) * b.x;
+  proj.y = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / ( magnitude(b)*magnitude(b) ) * b.y;
+  proj.z = ( (a.x*b.x) + (a.y*b.y) + (a.z*b.z) ) / ( magnitude(b)*magnitude(b) ) * b.z;
 
   return proj;
 }
