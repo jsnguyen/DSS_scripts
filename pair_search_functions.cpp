@@ -48,7 +48,7 @@ sph_t cart_to_sph(cart_t cart){
 
   sph_t sph;
 
-  sph.theta = atan(sqrt(cart.x*cart.x + cart.y*cart.y)/cart.z);
+  sph.theta = acos(cart.z/sqrt(cart.x*cart.x + cart.y*cart.y + cart.z*cart.z));
   sph.phi = atan(cart.y/cart.x);
 
   return sph;
