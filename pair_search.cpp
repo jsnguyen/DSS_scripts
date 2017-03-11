@@ -13,7 +13,7 @@ int main(){
 
   string halo_a_str, halo_b_str, pair_id_str, temp;
 
-  int i,j,k,l,m, pair_count=0;
+  int i,j,k,l, pair_count=0;
 
   bool valid_pair=false;
 
@@ -143,19 +143,18 @@ int main(){
       cout << "probability: " << pair[k].prob << endl;
       cout << "------------------------------------------" << endl;
 
-
+/*
       pair_out << pair[k].id << endl;
       save_halo(pair[k].a,pair_out);
       save_halo(pair[k].b,pair_out);
       pair_out << pair[k].prob << endl; //store data in output file
+*/
 
       //outputting the angles to a file
-      angle_out << "#" << endl;
+      angle_out << "#" << endl; //delimiter
+      //good_theta and good_phi should have the same size
       for( l = 0; l< int(good_theta.size()); l++){
-        for( m = 0; m < int(good_phi.size()); m++){
-
-          angle_out << good_theta[l] << " " << good_phi[m] << endl;
-        }
+        angle_out << good_theta[l] << " " << good_phi[l] << endl;
       }
 
       //reset good theta and good phi vectors
