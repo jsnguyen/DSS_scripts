@@ -2,7 +2,13 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char *argv[]){
+
+  bool VERBOSE = false;
+
+  if ( argc !=1 && string(argv[1]) == "-v" ){
+    VERBOSE = true;
+  }
 
   vector<pair_t> pair(N_PAIRS); // This is our giant vector where we store all the halo pairs in the heap
 
@@ -20,16 +26,14 @@ int main(){
   string save_directory = "/home/jsnguyen/DSS_Data/";
 
 /*
- * sphere[theta][phi]
  * Theta has a range of 0 to pi.
  * Phi has a range of 0 to 2pi.
  * Since phi covers twice the interval, we do ANGULAR_RES*2.
- * This array stores all the viewing angles that fulfil the search criterion.
- * Printing this array is the same as taking the surface of a sphere and flattening and stretching it into a squre.
+ * This vector stores all the viewing angles that fulfil the search criterion.
  * Angular resolution determines the number of "pixels" on this sphere.
  */
-  vector <double> good_phi;
-  vector <double> good_theta;
+
+  vector <sph_t> good_angles;
 
   b_sep = get_range_input("separation"); // Units: Mpc
   b_vel = get_range_input("velocity"); // Units: km/s
@@ -60,10 +64,11 @@ int main(){
       pair[i].b = halo_t_parser(halo_b_str); // Parses pair.b data into halo_t retainer
 
       if (i%10000 == 0){
-        cout << "Processing... " <<  double(i)/double(N_PAIRS)*100 << '%' << endl;
+        cout << "Processing... " <<  double(i)/double(N_PAIRS)*100 << "%\r";
+        cout.flush();
       }
     }
-    cout << "Processing... 100%\nComplete."<< endl;
+    cout << "Processing... 100% Complete."<< endl;
   }
 
   else {
@@ -71,12 +76,13 @@ int main(){
     return 1;
   }
 
-  cout << "Searching for matching pairs." << endl;
+  cout << "Searching for matching pairs..." << " 0%\r";
+  cout.flush();
 
   ofstream pair_out; //pair output
   pair_out.open(save_directory+"pair_output.txt");
 
-  ofstream angle_out;
+  ofstream angle_out; //angle output
   angle_out.open(save_directory+"angle_out.txt");
 
   // Iterates over all the pairs
@@ -84,7 +90,8 @@ int main(){
 
    // Print progress in percentage
     if (k%1000 == 0){
-      cout <<  double(k)/double(N_PAIRS)*100 << '%' << endl;
+      cout << "Searching for matching pairs... " << double(k)/double(N_PAIRS)*100 << "%\r";
+      cout.flush();
     }
 
     // Mass check
@@ -113,8 +120,7 @@ int main(){
             // Observed Separation check
             if(magnitude(obs_sep) > b_sep.low && magnitude(obs_sep) < b_sep.up){
               valid_pair = true;
-              good_theta.push_back(sph.theta);
-              good_phi.push_back(sph.phi);
+              good_angles.push_back(sph);
               area_counter += ( double(PI)/double(ANGULAR_RES) ) * ( cos( sph.theta - ( double(PI)/double(ANGULAR_RES) ) ) - cos(sph.theta) );
             }
           }
@@ -129,37 +135,33 @@ int main(){
     pair[k].prob = area_counter / double(4*PI); //area that works divided by the surface area of the sphere
     area_counter = 0;
 
-    //checks if there is atleast one angle that works
+    // Check if there is at least one angle for which the pair can be an analog
     if(valid_pair==true){
       valid_pair = false; //Reset valid_pair flag
-      // Check if there is at least one angle for which the pair can be an analog
       pair_count++;
 
-
+    if (VERBOSE == true) {
       //Print pair attributes
       cout << pair[k].id << endl;
       print_halo(pair[k].a);
       print_halo(pair[k].b);
       cout << "probability: " << pair[k].prob << endl;
       cout << "------------------------------------------" << endl;
+    }
 
-/*
+      //Save pair attributes
       pair_out << pair[k].id << endl;
       save_halo(pair[k].a,pair_out);
       save_halo(pair[k].b,pair_out);
       pair_out << pair[k].prob << endl; //store data in output file
-*/
 
-      //outputting the angles to a file
-      angle_out << "#" << endl; //delimiter
-      //good_theta and good_phi should have the same size
-      for( l = 0; l< int(good_theta.size()); l++){
-        angle_out << good_theta[l] << " " << good_phi[l] << endl;
+      //Save good pair angles to a file
+      angle_out << "#" << endl; //Delimiter
+      for( l = 0; l< int(good_angles.size()); l++){
+        angle_out << good_angles[l].theta << " " << good_angles[l].phi << endl;
       }
-
-      //reset good theta and good phi vectors
-      good_theta.clear();
-      good_phi.clear();
+      //Reset good angles vector
+      good_angles.clear();
 
     }
   }
@@ -175,7 +177,6 @@ int main(){
   cout << "(id)                  pair_id" << endl;
   cout << "(halo a attributes)   aindex ax ay az avx avy avz amvir ar200b" << endl;
   cout << "(halo b attributes)   bindex bx by bz bvx bvy bvz bmvir br200b" << endl;
-
 
   return 0;
 }

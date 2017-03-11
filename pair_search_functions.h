@@ -25,9 +25,9 @@ struct cart_t{
 };
 
 struct sph_t{
+  double rho; //for memory-saving purposes, rho is left empty, may become useful later.
   double theta; // polar angle
   double phi; // azimuthal angle
-  double rho; // radius, this isn't really used
 };
 
 struct halo_t{

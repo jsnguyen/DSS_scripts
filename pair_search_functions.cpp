@@ -37,6 +37,8 @@ cart_t sph_to_cart(sph_t sph){
 
   cart_t cart;
 
+  //Rho is not included here, assumed to be 1;
+
   cart.x = sin(sph.theta)*cos(sph.phi);
   cart.y = sin(sph.theta)*sin(sph.phi);
   cart.z = cos(sph.theta);
@@ -48,8 +50,10 @@ sph_t cart_to_sph(cart_t cart){
 
   sph_t sph;
 
+  //sph.rho = sqrt(cart.x*cart.x + cart.y*cart.y + cart.z*cart.z) just ignore rho, may need later
   sph.theta = acos(cart.z/sqrt(cart.x*cart.x + cart.y*cart.y + cart.z*cart.z));
   sph.phi = atan(cart.y/cart.x);
+
 
   return sph;
 }
