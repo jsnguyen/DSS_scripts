@@ -7,8 +7,8 @@ import math
 
 pi = 3.1459
 
-save_directory = "/home/jsnguyen/Dropbox/DSS_Data/"
-f = open(save_directory+"angle_out_backup.txt")
+save_directory = "/home/jsnguyen/DSS_Data/"
+f = open(save_directory+"angle_out.txt")
 next(f) #skip first line
 
 
@@ -74,7 +74,7 @@ plt.xlabel("phi")
 plt.ylim(0, pi)
 plt.ylabel("theta")
 
-plt.savefig('pair5.png')
+plt.savefig('pair.png')
 
 plt.grid(True)
 plt.show()
