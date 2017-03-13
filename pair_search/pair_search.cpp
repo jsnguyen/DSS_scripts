@@ -12,14 +12,16 @@ int main(int argc, char *argv[]){
 
   vector<pair_t> pair(N_PAIRS); // This is our giant vector where we store all the halo pairs in the heap
 
-  cartesianCoord obs, obs_sep, obs_vel, rel_v, rel_p;
-  sphericalCoord sph;
+  cartesianCoord obs, obs_sep, obs_vel, rel_v, rel_p, basis_x, basis_y, basis_z;
+  sphericalCoord sph, holder;
   bounds_t b_sep, b_vel, b_mass_a, b_mass_b;
   double area_counter=0;
 
   string halo_a_str, halo_b_str, pair_id_str, temp;
 
   int i,j,k,l, pair_count=0;
+
+//  cartesianCoord change_of_basis[3];
 
   bool valid_pair=false;
 
@@ -110,8 +112,8 @@ int main(int argc, char *argv[]){
 
           obs =  sph.sph_to_cart(); // Convert spherical coordinates to cartesian
 
-          rel_p = pair[k].a.pos-pair[k].b.pos; // Calculate relative position
           rel_v = pair[k].a.vel-pair[k].b.vel; // Calculate relative velocity
+          rel_p = pair[k].a.pos-pair[k].b.pos; // Calculate relative position
 
           obs_vel = rel_v.projection(obs); // Calculate observed velocity
           obs_sep = rel_p.sep_projection(obs); // Calculate observed separation
@@ -123,7 +125,6 @@ int main(int argc, char *argv[]){
               valid_pair = true;
               good_angles.push_back(sph);
               area_counter += ( double(PI)/double(ANGULAR_RES) ) * ( cos( sph.get_theta() - ( double(PI)/double(ANGULAR_RES) ) ) - cos(sph.get_theta()) );
-
             }
           }
         }
@@ -158,7 +159,7 @@ int main(int argc, char *argv[]){
       pair_out << pair[k].prob << endl; //store data in output file
 
       //Save good pair angles to a file
-      angle_out << "#" << endl; //Delimiter
+      angle_out << "# "<< pair[k].id << endl; //Delimiter
       for( l = 0; l< int(good_angles.size()); l++){
         angle_out << good_angles[l].get_theta() << " " << good_angles[l].get_phi() << endl;
       }

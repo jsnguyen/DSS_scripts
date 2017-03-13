@@ -5,7 +5,7 @@
 #include <math.h>
 #include <iostream>
 
-#define PI 3.1459
+#define PI 3.14159265359
 
 class cartesianCoord;
 
@@ -14,6 +14,8 @@ class sphericalCoord{
     sphericalCoord();
     sphericalCoord(double, double, double);
     cartesianCoord sph_to_cart() const;
+
+    void set(double,double,double);
 
     void set_rho(double);
     void set_theta(double);

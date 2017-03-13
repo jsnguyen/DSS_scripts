@@ -30,6 +30,21 @@ cartesianCoord cartesianCoord::operator* (const double b){
   return cartesianCoord(x*b, y*b, z*b);
 }
 
+void cartesianCoord::set_zero(){
+  x = 0;
+  y = 0;
+  z = 0;
+  return;
+}
+
+void cartesianCoord::set(double a, double b, double c){
+  x = a;
+  y = b;
+  z = c;
+  return;
+}
+
+
 void cartesianCoord::set_x(double new_x){
   x = new_x;
   return;
@@ -52,6 +67,30 @@ double cartesianCoord::get_y(){
 }
 double cartesianCoord::get_z(){
   return z;
+}
+
+cartesianCoord cartesianCoord::normalize(){
+  cartesianCoord a(x,y,z);
+  a.set(x/a.magnitude(),y/a.magnitude(),z/a.magnitude());
+  return a;
+}
+
+cartesianCoord cartesianCoord::crossProd(cartesianCoord a){
+  cartesianCoord cross;
+
+  cross.set_x((y*a.get_z()) - (z*a.get_y()));
+  cross.set_y((z*a.get_x()) - (x*a.get_z()));
+  cross.set_z((x*a.get_y()) - (y*a.get_x()));
+
+  return cross;
+}
+
+double cartesianCoord::get_angle(cartesianCoord b){
+  double angle;
+  cartesianCoord a(x,y,z);
+
+  angle = acos(a.dotProd(b) / (a.magnitude()*b.magnitude()));
+  return angle;
 }
 
 std::ostream &operator<< (std::ostream &out, const cartesianCoord &a){
@@ -88,9 +127,6 @@ sphericalCoord cartesianCoord::cart_to_sph() const{
   double theta = acos(z/rho);
   double phi = atan2(y,x);
 
-  if (rho < 0){
-    rho += 2.0*PI;
-  }
   if (theta < 0){
     theta += 2.0*PI;
   }

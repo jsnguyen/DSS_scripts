@@ -21,14 +21,15 @@ i=0
 
 #This only reads the first halo in the angles file!
 
-for i in range(0):
+for i in range(1909):
     next (f)
 
 for line in f:
     line = line.strip()
     i+=1
-    if line=="#":
+    if "#" in line:
         print i
+        print "id:",line[2:]
         break
 
     theta_t = float(line.split()[0]) #theta
@@ -43,8 +44,11 @@ for line in f:
 
 f.close()
 
+
+
 fig = plt.figure(figsize=(8,18))
 ax = fig.add_subplot(211,projection='3d')
+plt.title("id: "+line[2:])
 
 pole_x = np.zeros(2)
 pole_y = np.zeros(2)
@@ -74,7 +78,7 @@ plt.xlabel("phi")
 plt.ylim(0, pi)
 plt.ylabel("theta")
 
-plt.savefig('pair.png')
+plt.savefig('pair_n'+line[2:]+'.png')
 
 plt.grid(True)
 plt.show()

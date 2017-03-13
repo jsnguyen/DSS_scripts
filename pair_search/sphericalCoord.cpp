@@ -21,6 +21,13 @@ cartesianCoord sphericalCoord::sph_to_cart() const{
   return cart;
 }
 
+void sphericalCoord::set(double a, double b, double c){
+  rho = a;
+  theta = b;
+  phi = c;
+  return;
+}
+
 void sphericalCoord::set_rho(double new_rho){
   rho = new_rho;
   return;

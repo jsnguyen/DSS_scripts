@@ -12,6 +12,7 @@
 #include <string>
 
 #include "cartesianCoord.h"
+#include "sphericalCoord.h"
 
 #define N_HEADER_LINES 3
 #define HUBBLE_CONST 0.688062
