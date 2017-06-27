@@ -1,13 +1,13 @@
 CC=g++
 CFLAGS=-lm -Wall -std=c++11
 
-all: pair_search_tool reduced_halo_pair_finder
+all: reduced_halo_pair_finder n_halo_system_finder
 
-pair_search_tool:
-	$(CC) $(CFLAGS) pair_search.cpp pair_search_functions.cpp -o pair_search.exe
+n_halo_system_finder:
+	$(CC) $(CFLAGS) n_halo_system_finder.cpp -o n_halo_system_finder.exe
 
 reduced_halo_pair_finder:
 	$(CC) $(CFLAGS) reduced_halo_pair_finder.cpp -o reduced_halo_pair_finder.exe
 
 clean:
-	rm pair_search.exe reduced_halo_pair_finder.exe
+	rm n_halo_system_finder.exe reduced_halo_pair_finder.exe
