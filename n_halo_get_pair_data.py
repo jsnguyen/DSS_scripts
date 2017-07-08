@@ -31,10 +31,10 @@ def get_data(sim_file,halo_index):
 
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
-root_directory = '/home/jsnguyen/Desktop/'
+root_directory = '/home/jsnguyen/DSS_data/'
 save_file='reduced_halo_pairs_1e14_5Mpc_b_full_data.p'
 
-load_file = 'reduced_halo_pairs_1e14_5Mpc_b.txt'
+load_file = 'reduced_halo_pairs_1e14_5Mpc_c.txt'
 
 #f_pairs_data = open(save_directory+'reduced_halo_pairs_full_data.txt','w')
 
@@ -78,7 +78,8 @@ with open(root_directory+load_file,'r') as f_pairs:
             print i
 
     print 'dumping to pickle file...'
-    pickle.dump( n_halo_system, open( root_directory+save_file, 'wb' ) )
+    with  open( root_directory+save_file, 'wb' ) as pickle_f:
+        pickle.dump(n_halo_system, pickle_f)
 
 
 

@@ -60,7 +60,7 @@ int main(){
 
   vector<coord> data(N_TOTAL_MASS_HALOS); //this array is HUGE, requires ~1.3 Gb of RAM
 
-  string save_directory = "/home/jsnguyen/Desktop/";
+  string save_directory = "/home/jsnguyen/DSS_data/";
   string mass_fn = "mass_filter_1e14.txt";
   string reduced_pair_fn = "reduced_halo_pairs_1e14_5Mpc_c.txt";
 
@@ -99,10 +99,9 @@ int main(){
 
   f_pairs.open((save_directory+reduced_pair_fn).c_str());
   f_pairs << "# halo_a halo_b" << endl; //header
-  f_pairs.close();
 
   for( i=0; i < int(data.size())-1; i++ ){
-    to_write += "#### SYSTEM START ####\n";
+    to_write = "#### SYSTEM START ####\n";
     to_write += to_string(data[i].index)+'\n';
 
     for(j=i+1; j < int(data.size())-i; j++){
@@ -127,7 +126,7 @@ int main(){
 
     halo_found = false;
   }
-//    f_pairs.close();
+  f_pairs.close();
 /*
     for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
       for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
