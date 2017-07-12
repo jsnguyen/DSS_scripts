@@ -70,12 +70,6 @@ int main(){
   f_mass_filter.open((save_directory+mass_fn).c_str());
 
   if (f_mass_filter.is_open()){
-/*
-    //skip the header lines
-    for( i=0; i<N_HEADER_LINES; i++){
-      getline(f_mass_filter,working_coord_str);
-    }
-*/
 
     for (i=0; i<N_TOTAL_MASS_HALOS; i++){
       getline(f_mass_filter,working_coord_str);
@@ -104,21 +98,24 @@ int main(){
     to_write = "#### SYSTEM START ####\n";
     to_write += to_string(data[i].index)+'\n';
 
-    for(j=i+1; j < int(data.size())-i; j++){
+    for(j=i+1; j < int(data.size()); j++){
       dist = distance(data[i],data[j]);
 
       if (dist < MAX_SEPARATION){
         cout << "pair found: " << data[i].index << " " << data[j].index << endl;
         cout << "separation: " << dist << endl;
-        halo_found=true;
+        halo_found = true;
         to_write += to_string(data[j].index)+'\n';
         data.erase(data.begin()+j);
+        j--;
       }
 
       if(abs(data[i].index-data[j].index) > 10000){
         j = int(data.size())-i; // 99% likelyhood we will find pairs within 10000 indicies
       }
     }
+
+    to_write += "#### SYSTEM END ####\n";
 
     if(halo_found){
       f_pairs << to_write;
@@ -127,32 +124,6 @@ int main(){
     halo_found = false;
   }
   f_pairs.close();
-/*
-    for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
-      for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
-        dist = distance(data[i],data[j]);
-
-        if (dist < MAX_SEPARATION){
-          cout << "pair found: " << data[i].index << " " << data[j].index << endl;
-          cout << "separation: " << dist << endl;
-          f_pairs << data[i].index << " " << data[j].index << endl;
-        }
-
-        if(abs(data[i].index-data[j].index) > 10000){
-          j = N_TOTAL_MASS_HALOS; // 99% likelyhood we will find pairs within 10000 indicies
-        }
-      }
-    }
-*/
-
-
-
-/*
-  else {
-    cout << "Error: Cannot open file." << endl;
-  }
-*/
-
 
   return 0;
 }

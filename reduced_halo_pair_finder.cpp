@@ -58,12 +58,15 @@ int main(){
 
   vector<coord> data(N_TOTAL_MASS_HALOS); //this array is HUGE, requires ~1.3 Gb of RAM
 
-  string save_directory = "/home/jsnguyen/Desktop/";
+  string save_directory = "/home/jsnguyen/DSS_data/";
+  string fn_mass_filter = "mass_filter.txt";
+
+  string fn_pairs = "reduced_halo_pairs.txt";
 
   ifstream f_mass_filter;
   ofstream f_pairs;
 
-  f_mass_filter.open(save_directory+"mass_filter.txt");
+  f_mass_filter.open((save_directory+fn_mass_filter).c_str());
 
   if (f_mass_filter.is_open()){
 
@@ -85,7 +88,8 @@ int main(){
     cout << "Processing... 100%\nComplete."<< endl;
 
     f_mass_filter.close();
-    f_pairs.open(save_directory+"reduced_halo_pairs.txt");
+
+    f_pairs.open((save_directory+fn_pairs).c_str());
     f_pairs << "# halo_a halo_b" << endl; //header
 
     for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
