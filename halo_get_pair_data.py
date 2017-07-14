@@ -6,8 +6,10 @@ HUBBLE_CONST = 0.688062
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
 save_dir = '/home/jsnguyen/DSS_data/'
-save_data_fn = 'reduced_halo_pairs_full_data.txt'
-load_data_fn = 'reduced_halo_pairs.txt'
+
+load_data_fn = 'reduced_5Mpc_mass_filter_subhalos_1e+14.txt'
+
+save_data_fn = 'full_data_'+load_data_fn
 
 sdf_data = load_sdf(sim_file)
 
@@ -24,9 +26,6 @@ f_pairs = open(save_dir+load_data_fn,'r')
 f_pairs.next() #skip header line
 i=0
 for line in f_pairs:
-
-    if i % 1000 == 0:
-        print i
 
     halo_a = int(line.split()[0])
     halo_b = int(line.split()[1])
@@ -63,6 +62,9 @@ for line in f_pairs:
     f_pairs_data.write(str(i)+'\n')
     f_pairs_data.write(str(halo_a)+' '+str(ax)+' '+str(ay)+' '+str(az)+' '+str(avx)+' '+str(avy)+' '+str(avz)+' '+str(amvir)+' '+str(ar200b)+' '+str(aid)+' '+str(apid)+' '+'\n')
     f_pairs_data.write(str(halo_b)+' '+str(bx)+' '+str(by)+' '+str(bz)+' '+str(bvx)+' '+str(bvy)+' '+str(bvz)+' '+str(bmvir)+' '+str(br200b)+' '+str(bid)+' '+str(bpid)+' '+'\n')
+
+    if i % 1000 == 0:
+        print 'pair no.', i
 
     i+=1
 

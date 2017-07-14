@@ -76,7 +76,7 @@ int main(){
 
       while (working_coord_str.at(0) == '#'){
         getline(f_mass_filter,working_coord_str);
-        cout << "skipped a line" << endl;
+        cout << "skipped a header line" << endl;
       }
 
       working_coord = coord_parser(working_coord_str);

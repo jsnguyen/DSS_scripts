@@ -7,10 +7,10 @@
 #include <limits>
 #include <vector>
 
-#define N_TOTAL_MASS_HALOS 46037858
 #define N_HEADER_LINES 3
-#define MAX_SEPARATION 1.5 //Units: Mpc
 using namespace std;
+
+const int MAX_SEPARATION = 5; //Units: Mpc
 
 struct coord{
   long long index;
@@ -56,12 +56,12 @@ int main(){
   int i,j;
   double dist;
 
-  vector<coord> data(N_TOTAL_MASS_HALOS); //this array is HUGE, requires ~1.3 Gb of RAM
+  vector<coord> data; //this array is HUGE, requires ~1.3 Gb of RAM
 
   string save_directory = "/home/jsnguyen/DSS_data/";
-  string fn_mass_filter = "mass_filter.txt";
+  string fn_mass_filter = "mass_filter_subhalos_1e+14.txt";
 
-  string fn_pairs = "reduced_halo_pairs.txt";
+  string fn_pairs = "reduced_"+to_string(MAX_SEPARATION)+"Mpc_"+fn_mass_filter;
 
   ifstream f_mass_filter;
   ofstream f_pairs;
@@ -70,30 +70,36 @@ int main(){
 
   if (f_mass_filter.is_open()){
 
-    //skip the header lines
-    for( i=0; i<N_HEADER_LINES; i++){
-      getline(f_mass_filter,working_coord_str);
-    }
+    i=0;
+    while(getline(f_mass_filter,working_coord_str)){
 
-    for( i=0; i<N_TOTAL_MASS_HALOS; i++){
-      getline(f_mass_filter,working_coord_str);
+      while (working_coord_str.at(0) == '#'){
+        getline(f_mass_filter,working_coord_str);
+        cout << "skipped a header line" << endl;
+      }
+
+      i++;
       working_coord = coord_parser(working_coord_str);
-      data[i] = working_coord;
+      data.push_back(working_coord);
 
-      if (i%100000 == 0){
-        cout << "Processing... " <<  double(i)/double(N_TOTAL_MASS_HALOS)*100 << '%' << endl;
+      if (i%1000000 == 0){
+        cout << "Processing... " << endl;
       }
     }
 
-    cout << "Processing... 100%\nComplete."<< endl;
+    cout << "Total Number of mass filtered halos: "<< data.size() << endl;
+    cout << "Processing... 100% complete."<< endl;
 
     f_mass_filter.close();
 
     f_pairs.open((save_directory+fn_pairs).c_str());
     f_pairs << "# halo_a halo_b" << endl; //header
 
-    for( i=0; i<N_TOTAL_MASS_HALOS-1; i++ ){
-      for(j=i+1; j< N_TOTAL_MASS_HALOS; j++){
+    for( i=0; i<int(data.size())-1; i++ ){
+      for(j=i+1; j< int(data.size()); j++){
+        if(data[i].x == data[j].x && data[i].y == data[j].y &&  data[i].z == data[j].z && i+1 == j){
+          continue;
+        }
         dist = distance(data[i],data[j]);
 
         if (dist < MAX_SEPARATION){
@@ -103,7 +109,7 @@ int main(){
         }
 
         if(abs(data[i].index-data[j].index) > 10000){
-          j = N_TOTAL_MASS_HALOS; // 99% likelyhood we will find pairs within 10000 indicies
+          j = data.size(); // 99% likelyhood we will find pairs within 10000 indicies
         }
       }
     }
