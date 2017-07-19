@@ -18,7 +18,7 @@ f_pairs_data = open(save_dir+save_data_fn,'w')
 #header describes the format of how a pair is stored
 f_pairs_data.write('# pair_id\n')
 f_pairs_data.write('# ax ay az avx avy avz amvir ar200b aid apid\n')
-f_pairs_data.write('# bx by bz bvx bvy bvz bmvir br200b aid apid\n')
+f_pairs_data.write('# bx by bz bvx bvy bvz bmvir br200b bid bpid\n')
 
 f_pairs_data.close()
 

@@ -91,38 +91,31 @@ int main(){
     cout << "Processing... 100% complete."<< endl;
 
     f_mass_filter.close();
+  }
 
-    f_pairs.open((save_directory+fn_pairs).c_str());
-    f_pairs << "# halo_a halo_b" << endl; //header
+  f_pairs.open((save_directory+fn_pairs).c_str());
+  f_pairs << "# halo_a halo_b" << endl; //header
 
-    for( i=0; i<int(data.size())-1; i++ ){
-      for(j=i+1; j< int(data.size()); j++){
-        if(data[i].x == data[j].x && data[i].y == data[j].y &&  data[i].z == data[j].z && i+1 == j){
-          continue;
-        }
-        dist = distance(data[i],data[j]);
+  for( i=0; i<int(data.size())-1; i++ ){
+    for(j=i+1; j< int(data.size()); j++){
+      if(data[i].x == data[j].x && data[i].y == data[j].y &&  data[i].z == data[j].z && i+1 == j){
+        continue;
+      }
+      dist = distance(data[i],data[j]);
 
-        if (dist < MAX_SEPARATION){
-          cout << "pair found: " << data[i].index << " " << data[j].index << endl;
-          cout << "separation: " << dist << endl;
-          f_pairs << data[i].index << " " << data[j].index << endl;
-        }
+      if (dist < MAX_SEPARATION){
+        cout << "pair found: " << data[i].index << " " << data[j].index << endl;
+        cout << "separation: " << dist << endl;
+        f_pairs << data[i].index << " " << data[j].index << endl;
+      }
 
-        if(abs(data[i].index-data[j].index) > 10000){
-          j = data.size(); // 99% likelyhood we will find pairs within 10000 indicies
-        }
+      if(abs(data[i].index-data[j].index) > 10000){
+        j = int(data.size()); // 99% likelyhood we will find pairs within 10000 indicies
       }
     }
-
-    f_pairs.close();
-
   }
 
-  else {
-    cout << "Error: Cannot open file." << endl;
-  }
-
-
+  f_pairs.close();
 
   return 0;
 }
