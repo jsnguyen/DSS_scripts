@@ -2,25 +2,25 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = '/home/jsnguyen/Desktop/reduced_halo_pairs_1e14_5Mpc.txt'
+filename = '/home/jsnguyen/DSS_data/n_subhalo_reduced_5Mpc_mass_filter_subhalos_1e+14.txt'
 
 halos=[]
 new_sys=False
-i=None
+
 with open(filename) as f:
     f.next() #skip header
     for line in f:
 
-        if '#' in line:
-            new_sys=True
-        else:
-            i+=1
-            new_sys=False
+        if line.strip() == '#### SYSTEM START ####':
+            i=0
 
-        if new_sys == True:
+        elif line.strip() == '#### SYSTEM END ####':
             if i is not None:
                 halos.append(i)
-            i=1
+
+        else:
+            i+=1
+
 
 for el in set(halos):
     print el,'halo systems:',halos.count(el)

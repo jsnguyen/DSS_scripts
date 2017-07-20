@@ -61,8 +61,8 @@ int main(){
   vector<coord> data; //this array is HUGE, requires ~1.3 Gb of RAM
 
   string save_directory = "/home/jsnguyen/DSS_data/";
-  string fn_mass_filter = "mass_filter_halos_1e+14.txt";
-  string fn_n_halo = "n_halo_reduced_"+to_string(MAX_SEPARATION)+"Mpc_"+fn_mass_filter;
+  string fn_mass_filter = "mass_filter_subhalos_1e+14.txt";
+  string fn_n_halo = "n_subhalo_reduced_"+to_string(MAX_SEPARATION)+"Mpc_"+fn_mass_filter;
 
   ifstream f_mass_filter;
   ofstream f_pairs;
