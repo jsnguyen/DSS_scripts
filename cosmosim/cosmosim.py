@@ -1,5 +1,6 @@
 import csv
 import math
+from collections import defaultdict
 
 class vector(object):
     def __init__(self,x=None,y=None,z=None):
@@ -109,8 +110,10 @@ if __name__ == '__main__':
     names=[]
     with open(filename, 'r') as f:
         for line in f:
-            names.append(line.strip()+'.csv')
+            names.append('/home/jsnguyen/DSS_scripts/cosmosim/'+line.strip()+'.csv')
+            break
 
+    systems=[]
     progenitors=[]
     for fn in names:
         print 'loading:',fn
@@ -120,3 +123,13 @@ if __name__ == '__main__':
             for line in f_csv:
                 temp_halo = halo(line[1:])
                 progenitors.append(temp_halo)
+
+    snaps=defaultdict(list)
+    for i in range(len(progenitors)):
+        if progenitors[i].snapnum >= 100:
+            snaps[progenitors[i].snapnum].append(progenitors[i])
+
+    mass={}
+    for key in snaps.keys():
+        for i in range(len(snaps[key])):
+            mass['rockstar_id'] = snaps[key][i].mass
