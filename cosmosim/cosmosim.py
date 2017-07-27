@@ -105,12 +105,17 @@ class halo(object):
         "t_u: "+str(self.t_u)+'\n'+
         "snapnum: "+str(self.snapnum))
 
+def removekey(d, key):
+    r = dict(d)
+    del r[key]
+    return r
+
 if __name__ == '__main__':
     filename = '/home/jsnguyen/DSS_scripts/cosmosim/name_list.txt'
     names=[]
     with open(filename, 'r') as f:
         for line in f:
-            names.append('/home/jsnguyen/DSS_scripts/cosmosim/'+line.strip()+'.csv')
+            names.append('/home/jsnguyen/DSS_data/cosmosim/'+line.strip()+'.csv')
             break
 
     systems=[]
@@ -132,4 +137,7 @@ if __name__ == '__main__':
     mass={}
     for key in snaps.keys():
         for i in range(len(snaps[key])):
-            mass['rockstar_id'] = snaps[key][i].mass
+            mass[snaps[key][i].rockstar_id]=snaps[key][i].m_vir
+            temp = {k: v for k, v in mass.items() if v != max(mass)}
+        print temp
+        print max(temp), max(mass)
