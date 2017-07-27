@@ -116,11 +116,12 @@ if __name__ == '__main__':
     with open(filename, 'r') as f:
         for line in f:
             names.append('/home/jsnguyen/DSS_data/cosmosim/'+line.strip()+'.csv')
-            break
 
-    systems=[]
-    progenitors=[]
+    save_fn='bullet_cluster_analog_candidates.txt'
+    with open(save_fn,'w') as f:
+        pass
     for fn in names:
+        progenitors=[]
         print 'loading:',fn
         with open(fn, 'r') as f:
             f_csv = csv.reader(f, delimiter=',')
@@ -129,15 +130,46 @@ if __name__ == '__main__':
                 temp_halo = halo(line[1:])
                 progenitors.append(temp_halo)
 
-    snaps=defaultdict(list)
-    for i in range(len(progenitors)):
-        if progenitors[i].snapnum >= 100:
-            snaps[progenitors[i].snapnum].append(progenitors[i])
+        snaps=defaultdict(list)
+        for i in range(len(progenitors)):
+            if progenitors[i].snapnum >= 100:
+                snaps[progenitors[i].snapnum].append(progenitors[i])
 
-    mass={}
-    for key in snaps.keys():
-        for i in range(len(snaps[key])):
-            mass[snaps[key][i].rockstar_id]=snaps[key][i].m_vir
-            temp = {k: v for k, v in mass.items() if v != max(mass)}
-        print temp
-        print max(temp), max(mass)
+        s=[]
+        for i in snaps.keys():
+            s.append(int(i))
+        s.sort()
+
+        for key in s:
+            key = str(key)
+            mass={}
+            first_largest=None
+            first_id=None
+            second_largest=None
+            second_id=None
+            ratio=None
+            for i in range(len(snaps[key])):
+                mass[snaps[key][i].rockstar_id]=float(snaps[key][i].m_vir)
+
+            first_largest = max(mass.values())
+            for rockstar_id, val in mass.iteritems():
+                if val == first_largest:
+                    first_id = rockstar_id
+
+            second = { k:v for k, v in mass.items() if v != max(mass.values()) }
+            if second != {}:
+                for rockstar_id, val in second.iteritems():
+                    if val == first_largest:
+                        second_id = rockstar_id
+                second_largest = max(second.values())
+                ratio = first_largest/second_largest
+
+            if 4 <= ratio <= 50 and 9.0134e14 <= first_largest+second_largest <= 13.486e14:
+                print 'large ratio and mass found!'
+                print 'file:',fn
+                print 'ratio:', ratio
+                print 'combined mass:',first_largest+second_largest
+                print 'snapnum:',key,'mass a:',first_largest,'mass b:',second_largest
+
+                with open(save_fn,'a') as f:
+                    f.write(fn+' '+first_id+' '+str(first_largest)+' '+first_id+' '+str(second_largest)+'\n')
