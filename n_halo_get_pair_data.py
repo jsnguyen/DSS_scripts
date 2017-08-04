@@ -30,15 +30,36 @@ def get_data(sim_file,halo_index):
 
     return data
 
+def write_data(f,data):
+    to_write = str(data['x']) + ' '
+    to_write += str(data['y']) + ' '
+    to_write += str(data['z']) + ' '
+    to_write += str(data['vx']) + ' '
+    to_write += str(data['vy']) + ' '
+    to_write += str(data['vz']) + ' '
+    to_write += str(data['mvir']) + ' '
+    to_write += str(data['r200b']) + ' '
+    to_write += str(data['id']) + ' '
+    to_write += str(data['pid']) + '\n'
+    f.write(to_write)
+
 
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
-root_directory = '/home/jsnguyen/DSS_data/'
-load_file = 'n_halo_reduced_5Mpc_mass_filter_halo_1e+14.txt'
-save_file='full_data_'+load_file[:-4]+'.json'
+root_directory = '/home/jsnguyen/Dropbox/DSS_data/n_system/'
+load_file = 'n_subhalo_reduced_5Mpc_mass_filter_subhalo_1e+14.txt'
+json_save_file='full_data_'+load_file[:-4]+'.json'
+save_file='full_data_'+load_file
 
-json_f = open( root_directory+save_file, 'w' )
+json_f = open( root_directory+json_save_file, 'w' )
 json_f.close()
+
+txt_f = open( root_directory+save_file, 'w' )
+txt_f.write('#### HEADER START #####\n')
+txt_f.write('x y z vx vy vz mvir r200b id pid\n')
+txt_f.write('#### HEADER END ####\n')
+txt_f.close()
+
 
 with open(root_directory+load_file,'r') as f_pairs:
     f_pairs.next() #skip header line
@@ -49,16 +70,25 @@ with open(root_directory+load_file,'r') as f_pairs:
         if line.strip() == '#### SYSTEM START ####':
             halo_system=[]
             sys_counter+=1
+            with open( root_directory+save_file, 'a' ) as txt_f:
+                txt_f.write('#### SYSTEM START ####\n')
+
 
         elif line.strip() == '#### SYSTEM END ####':
             #print 'dumping to json file...'
-            with open( root_directory+save_file, 'a' ) as json_f:
+            with open( root_directory+json_save_file, 'a' ) as json_f:
                 json_f.write(json.dumps(halo_system)+'\n')
+
+            #print 'dumping to txt file...'
+            with open( root_directory+save_file, 'a' ) as txt_f:
+                txt_f.write('#### SYSTEM END ####\n')
 
         else:
             index = int(line)
             halo = get_data(sim_file,index)
             halo_system.append(halo)
+            with open( root_directory+save_file, 'a' ) as txt_f:
+                write_data(txt_f,halo)
 
         if i % 1000 == 0:
             print i
