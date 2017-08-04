@@ -112,13 +112,14 @@ def removekey(d, key):
 
 if __name__ == '__main__':
     filename = '/home/jsnguyen/DSS_scripts/cosmosim/name_list.txt'
+    root_dir = '/home/jsnguyen/DSS_data/'
     names=[]
     with open(filename, 'r') as f:
         for line in f:
-            names.append('/home/jsnguyen/DSS_data/cosmosim/'+line.strip()+'.csv')
+            names.append(root_dir+'cosmosim/'+line.strip()+'.csv')
 
     save_fn='bullet_cluster_analog_candidates.txt'
-    with open(save_fn,'w') as f:
+    with open(root_dir+save_fn,'w') as f:
         pass
     for fn in names:
         progenitors=[]
@@ -159,17 +160,17 @@ if __name__ == '__main__':
             second = { k:v for k, v in mass.items() if v != max(mass.values()) }
             if second != {}:
                 for rockstar_id, val in second.iteritems():
-                    if val == first_largest:
+                    if val != first_largest:
                         second_id = rockstar_id
                 second_largest = max(second.values())
                 ratio = first_largest/second_largest
 
-            if 4 <= ratio <= 50 and 9.0134e14 <= first_largest+second_largest <= 13.486e14:
+            if 4 <= ratio <= 15 and 9.0134e14 <= first_largest+second_largest <= 13.486e14:
                 print 'large ratio and mass found!'
                 print 'file:',fn
                 print 'ratio:', ratio
                 print 'combined mass:',first_largest+second_largest
                 print 'snapnum:',key,'mass a:',first_largest,'mass b:',second_largest
 
-                with open(save_fn,'a') as f:
-                    f.write(fn+' '+first_id+' '+str(first_largest)+' '+first_id+' '+str(second_largest)+'\n')
+                with open(root_dir+save_fn,'a') as f:
+                    f.write(fn+' '+key+' '+first_id+' '+str(first_largest)+' '+second_id+' '+str(second_largest)+'\n')
