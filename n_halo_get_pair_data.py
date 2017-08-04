@@ -34,7 +34,7 @@ def get_data(sim_file,halo_index):
 sim_file = '/media/jsnguyen/JK-PEXHD/ds14_a_halos_1.0000'
 
 root_directory = '/home/jsnguyen/DSS_data/'
-load_file = 'n_halo_reduced_5Mpc_mass_filter_halos_1e+14.txt'
+load_file = 'n_halo_reduced_5Mpc_mass_filter_halo_1e+14.txt'
 save_file='full_data_'+load_file[:-4]+'.json'
 
 json_f = open( root_directory+save_file, 'w' )

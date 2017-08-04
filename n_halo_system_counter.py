@@ -2,7 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-filename = '/home/jsnguyen/DSS_data/n_subhalo_reduced_5Mpc_mass_filter_subhalos_1e+14.txt'
+filename = '/home/jsnguyen/DSS_data/n_subhalo_reduced_5Mpc_mass_filter_subhalo_1e+14.txt'
 
 halos=[]
 new_sys=False
